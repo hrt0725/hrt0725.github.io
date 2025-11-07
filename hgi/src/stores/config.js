@@ -7,6 +7,16 @@ export const useCounterStore = defineStore('counter', () => {
   function increment() {
     count.value++
   }
-
   return { count, doubleCount, increment }
+})
+
+export const useThemeStore = defineStore('Themer', () => {
+  const theme = ref(null)
+  const isDark = ref(false)
+  return { isDark, theme }
+})
+
+export const useUserStore = defineStore('UserStore', () => {
+  const isClickMenu2Collapsed = ref(false)
+  return { isClickMenu2Collapsed }
 })

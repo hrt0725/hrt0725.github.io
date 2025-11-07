@@ -1,9 +1,12 @@
 @import './base.css';
 
+* {
+  user-select: none;
+}
+
 #app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  margin: 0;
+  padding: 0rem;
   font-weight: normal;
 }
 
@@ -21,15 +24,16 @@ a,
   }
 }
 
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
+@media (min-width: 650px) {
+  #app {
+    /* display: flex;
+    flex-direction: row; */
   }
 
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
+}
+
+@media (max-width: 650px) {}
+
+.TabItemMain {
+  margin: 2px 1.5rem;
 }

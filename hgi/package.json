@@ -12,12 +12,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@vicons/ionicons5": "^0.13.0",
     "pinia": "^3.0.3",
     "vue": "^3.5.22",
     "vue-router": "^4.6.3"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.1",
+    "naive-ui": "^2.43.1",
     "vite": "^7.1.11",
     "vite-plugin-vue-devtools": "^8.0.3"
   }

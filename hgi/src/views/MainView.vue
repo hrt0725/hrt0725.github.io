@@ -78,29 +78,26 @@ function onupdate(key, item) {
         content: item.content
     })
     activeTabName.value = newName;
-    activeDrawer.value = false;
 
     if (useUserStore().isClickMenu2Collapsed) {
         collapsed.value = true;
+        activeDrawer.value = false;
     }
 
 }
 function miniMenuBtnEvent() {
     activeDrawer.value = true
 }
-function handleClose(name2) {
-    const { value: panels2 } = panels;
-    // if (panels2.length === 1) {
-    //     return;
-    // }
-    const index = panels2.findIndex((v) => name2 === v);
-    panels2.splice(index, 1);
-    if (activeTabName.value === name2) {
-        activeTabName.value = panels2[index].name;
-    } else {
-        activeTabName.value = panels2[panels2.length - 1].name
+function handleClose(closeName) {
+    if (panels.value.length === 1) {
+        return;
     }
-
+    const index = panels.value.findIndex((v) => {
+        return closeName === v.name;
+    });
+    panels.value.splice(index, 1);
+    if (panels.value.length - 1 === -1) return;
+    activeTabName.value = panels.value[panels.value.length - 1].name;
 }
 
 function renderIcon(icon) {

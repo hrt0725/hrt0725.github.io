@@ -31,8 +31,8 @@
         </n-card>
         <n-anchor>
             <n-anchor-link title="信息">
-                <n-anchor-link title="版本号：V1.0" />
-                <n-anchor-link title="上次更新时间：2025.11.7" />
+                <n-anchor-link title="版本号：V1.0.1" />
+                <n-anchor-link title="上次更新时间：2025.11.10" />
                 <n-anchor-link title="仓库地址">
                     <n-anchor-link title="GitHub" href="https://hrt0725.github.io" />
                 </n-anchor-link>

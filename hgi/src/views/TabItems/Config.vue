@@ -8,7 +8,7 @@
                 </n-space>
 
             </n-anchor-link>
-            <n-anchor-link title="配置">
+            <n-anchor-link title="其它">
                 <n-space>
                     <n-button type="primary" size="tiny"
                         @click="useUserStore().isClickMenu2Collapsed = !useUserStore().isClickMenu2Collapsed">{{

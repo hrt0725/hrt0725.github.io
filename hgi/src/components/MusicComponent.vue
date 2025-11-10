@@ -14,28 +14,36 @@
                 </div>
             </div>
             <div class="playControl">
-                <n-icon size="25">
+                <n-icon size="23">
                     <FeRandom />
                 </n-icon>
-                <n-icon size="25">
+                <n-icon size="23">
                     <PlaySkipBackCircleOutline />
                 </n-icon>
-                <n-icon size="25" v-if="!isPlay" @click="PlayClickEvent">
-                    <PlayCircleOutline />
-                </n-icon>
-                <n-icon size="25" v-if="isPlay" @click="PlayClickEvent">
-                    <StopCircleOutline />
+                <n-icon size="23" @click="PlayClickEvent">
+                    <PlayCircleOutline v-if="!isPlay" />
+                    <StopCircleOutline v-if="isPlay" />
                 </n-icon>
 
-                <n-icon size="25">
+                <n-icon size="23">
                     <PlaySkipForwardCircleOutline />
                 </n-icon>
-                <n-icon size="25" v-if="loopMod == 0" @click="LoopClickEvent">
-                    <CilLoop />
+                <n-icon size="23" @click="LoopClickEvent">
+                    <CilLoop v-if="loopMod == 0" />
+                    <CilLoop1 v-if="loopMod == 1" />
                 </n-icon>
-                <n-icon size="25" v-if="loopMod == 1" @click="LoopClickEvent">
-                    <CilLoop1 />
-                </n-icon>
+
+                <n-tooltip placement="top" trigger="hover">
+                    <template #trigger>
+                        <n-icon size="23" @click="SoundClickEvent">
+                            <Sound v-if="isSound" />
+                            <NoSound v-if="!isSound" />
+                        </n-icon>
+                    </template>
+                    <n-slider size="small" style="width: 100px;" v-model:value="SoundMount" :step="1" />
+                </n-tooltip>
+
+
             </div>
         </div>
     </n-card>
@@ -47,8 +55,12 @@ import { PlaySkipBackCircleOutline, PlayCircleOutline, StopCircleOutline, PlaySk
 import CilLoop from "./icons/CilLoop.vue";
 import CilLoop1 from "./icons/cilLoop1.vue";
 import FeRandom from "./icons/FeRandom.vue";
+import Sound from "./icons/Sound.vue";
+import NoSound from "./icons/NoSound.vue";
 const PlaybackProgress = ref(100);
+const SoundMount = ref(20);
 const isPlay = ref(true);
+const isSound = ref(true);
 const loopMod = ref(0);
 
 
@@ -59,7 +71,9 @@ function LoopClickEvent() {
     loopMod.value += 1;
     if (loopMod.value == 2) loopMod.value = 0;
 }
-
+function SoundClickEvent() {
+    isSound.value = !isSound.value;
+}
 </script>
 
 

@@ -42,6 +42,7 @@
                 <n-anchor-link title="Vue3" href="https://cn.vuejs.org/" />
                 <n-anchor-link title="Naive UI" href="https://www.naiveui.com/zh-CN/light" />
                 <n-anchor-link title="Ionic" href="https://ionic.io/ionicons" />
+                <n-anchor-link title="icones.js" href="https://icones.js.org/" />
             </n-anchor-link>
         </n-anchor>
     </main>

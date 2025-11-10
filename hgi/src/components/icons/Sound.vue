@@ -1,0 +1,13 @@
+<template>
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+        viewBox="0 0 21 21"><!-- Icon from System UIcons by Corey Ginnivan - https://github.com/CoreyGinnivan/system-uicons/blob/master/LICENSE -->
+        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+            d="M4.5 7.5h3l5-5v16l-5-5h-3a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1m10 8q2-1.5 2-5t-2-5m0 3v4" />
+    </svg>
+</template>
+
+<script>
+export default {
+    name: 'SystemUiconsVolumeHigh'
+}
+</script>

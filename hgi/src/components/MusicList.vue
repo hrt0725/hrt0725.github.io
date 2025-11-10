@@ -4,7 +4,7 @@
             <transition name="scale">
                 <div v-if="!isSelectKey" class="keySelect">
                     <div @click="keySelectClickEvent" class="keySelectItem" v-for="keyItem in selectKeyData">{{ keyItem
-                        }}
+                    }}
                     </div>
                 </div>
             </transition>

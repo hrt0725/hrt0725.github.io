@@ -1,4 +1,5 @@
 <template>
+
   <n-config-provider :theme="useThemeStore().theme">
     <n-scrollbar style="height:100vh">
       <RouterView />
@@ -8,4 +9,5 @@
 
 <script setup>
 import { useThemeStore } from "./stores/config";
+document.title = "HGI"
 </script>

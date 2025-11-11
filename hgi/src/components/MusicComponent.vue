@@ -24,7 +24,6 @@
                     <PlayCircleOutline v-if="!isPlay" />
                     <StopCircleOutline v-if="isPlay" />
                 </n-icon>
-
                 <n-icon size="23">
                     <PlaySkipForwardCircleOutline />
                 </n-icon>
@@ -32,7 +31,6 @@
                     <CilLoop v-if="loopMod == 0" />
                     <CilLoop1 v-if="loopMod == 1" />
                 </n-icon>
-
                 <n-tooltip placement="top" trigger="hover">
                     <template #trigger>
                         <n-icon size="23" @click="SoundClickEvent">
@@ -42,8 +40,6 @@
                     </template>
                     <n-slider size="small" style="width: 100px;" v-model:value="SoundMount" :step="1" />
                 </n-tooltip>
-
-
             </div>
         </div>
     </n-card>

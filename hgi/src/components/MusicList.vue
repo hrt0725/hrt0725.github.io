@@ -1,30 +1,29 @@
 <template>
     <n-card>
-        <n-scrollbar style="max-height: 55vh;">
+        <n-scrollbar style="max-height: 55vh;position: relative;">
             <transition name="scale">
                 <div v-if="!isSelectKey" class="keySelect">
-                    <div @click="keySelectClickEvent" class="keySelectItem" v-for="keyItem in selectKeyData">{{ keyItem
-                    }}
+                    <div @click="keySelectClickEvent" class="keySelectItem" v-for="keyItem in selectKeyData">
+                        <n-button size="small"> {{ keyItem }}</n-button>
                     </div>
                 </div>
             </transition>
             <transition name="scale">
-                <div>
-                    <div v-for="item in data" v-if="isSelectKey">
-                        <div @click="keySelectClickEvent">
+                <div v-if="isSelectKey">
+                    <div v-for="item in data">
+                        <div class="keyMain" @click="keySelectClickEvent">
                             {{ item.key }}
                         </div>
                         <div v-for="musicItem in item.data" class="listItem">
-                            <span>{{ musicItem.name }}</span>
-                            <span>{{ musicItem.zz }}</span>
-                            <span>{{ musicItem.zj }}</span>
-                            <span>{{ musicItem.lp }}</span>
-                            <span>{{ musicItem.sj }}</span>
+                            <n-button size="small" style="width: 100%;">
+                                <span style="width: 50%;"> {{ musicItem.name }}</span>
+                                <span style="width: 40%;"> {{ musicItem.zz }} </span>
+                                <span style="width: 10%;"> {{ musicItem.sj }} </span>
+                            </n-button>
                         </div>
                     </div>
                 </div>
             </transition>
-
         </n-scrollbar>
     </n-card>
 </template>
@@ -32,7 +31,7 @@
 <script setup>
 import { ref } from "vue";
 import pinyin from 'pinyin';
-const isSelectKey = ref(false);
+const isSelectKey = ref(true);
 const selectKeyData = ref([]);
 for (let i = 65; i <= 90; i++) {
     selectKeyData.value.push(String.fromCharCode(i))
@@ -44,29 +43,48 @@ const musicListData = ref([
     {
         name: "A Moment Apart",
         zz: "Odesza",
-        zj: "A Moment Apart..",
-        lp: "Blues",
         sj: "03:54",
     },
     {
         name: "aAA批发建材",
         zz: "Odesza",
-        zj: "A Moment Apart..",
-        lp: "Blues",
         sj: "03:54",
     },
     {
         name: "wwd fasgawg",
         zz: "wdzfawgawg",
-        zj: "uuuuuuu",
-        lp: "Blues",
         sj: "03:54",
     },
     {
         name: "稻香",
         zz: "周杰伦",
-        zj: "未知",
-        lp: "未知",
+        sj: "03:54",
+    },
+    {
+        name: "稻香",
+        zz: "周杰伦",
+        sj: "03:54",
+    }
+    ,
+    {
+        name: "稻香",
+        zz: "周杰伦",
+        sj: "03:54",
+    }
+    ,
+    {
+        name: "稻香",
+        zz: "周杰伦",
+        sj: "03:54",
+    },
+    {
+        name: "稻香",
+        zz: "周杰伦",
+        sj: "03:54",
+    },
+    {
+        name: "稻香",
+        zz: "周杰伦",
         sj: "03:54",
     }
 ]);
@@ -119,9 +137,7 @@ data.value = groupByFirstLetter(musicListData.value)
 console.log(data.value);
 
 function keySelectClickEvent() {
-    setTimeout(() => {
-        isSelectKey.value = !isSelectKey.value;
-    }, 300);
+    isSelectKey.value = !isSelectKey.value;
 }
 </script>
 
@@ -133,12 +149,10 @@ function keySelectClickEvent() {
     margin-right: 15px;
     padding: 3px 10px;
     border-radius: 5px;
-    background-color: rgb(237, 237, 237);
+
 }
 
-.listItem:hover {
-    background-color: rgb(224, 224, 224);
-}
+.listItem:hover {}
 
 .keySelect {
     display: flex;
@@ -149,7 +163,10 @@ function keySelectClickEvent() {
 
 .keySelectItem {
     display: inline;
-    background-color: aliceblue;
+}
+
+.keyMain:hover {
+    color: var(--n-tab-text-color-active) !important;
 }
 </style>
 
@@ -158,17 +175,25 @@ function keySelectClickEvent() {
 .scale-leave-active {
     transition: all 0.3s ease;
     transform-origin: center;
+
 }
 
-.scale-enter,
+.scale-enter-from,
 .scale-leave-to {
     transform: scale(0);
     opacity: 0;
+    position: absolute;
 }
 
 .scale-enter-to,
-.scale-leave {
+.scale-leave-from {
     transform: scale(1);
     opacity: 1;
+}
+
+.listItem .n-button__content {
+    text-align: justify;
+    display: flex;
+    width: 100%;
 }
 </style>

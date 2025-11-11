@@ -1,12 +1,12 @@
 <template>
     <main class="TabItemMain">
-        <MusicList :musicData="musicData" class="musicList" @on-item-click="onItemClick" />
+        <MusicList :musicData="musicData" class="musicList" @on-item-click="onListItemClick" />
         <MusicComponent v-model:src="musicSrc" v-model:itemData="itemData" class="mainMusic" />
     </main>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import MusicComponent from "@/components/MusicComponent.vue";
 import MusicList from "@/components/MusicList.vue";
 
@@ -27,19 +27,22 @@ Object.keys(musicFiles).forEach(async (filePath) => {
         musicName = result[0];
         zz = result[1]
     }
-
     musicData.value.push({
         fileNameEx: fileNameEx,
         name: musicName,
         zz: zz,
         sj: "03:54",
     })
-    console.log();
 });
-function onItemClick(musicItem) {
-    musicSrc.value = "/music/" + musicItem.fileNameEx;
+onMounted(() => {
+    musicSrc.value = "https://hrt0725.github.io/music/" + musicData.value[0].fileNameEx;
+    itemData.value = musicData.value[0]
+})
+function onListItemClick(musicItem) {
+    musicSrc.value = "https://hrt0725.github.io/music/" + musicItem.fileNameEx;
     itemData.value = musicItem
 }
+
 </script>
 
 

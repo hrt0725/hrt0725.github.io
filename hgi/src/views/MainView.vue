@@ -65,6 +65,7 @@ const menuOptions = [
         content: Config,
         icon: renderIcon(SettingsOutline),
     },
+
 ];
 const activeTabName = ref(null)
 const panels = ref([]);

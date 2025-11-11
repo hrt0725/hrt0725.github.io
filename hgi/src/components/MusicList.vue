@@ -15,10 +15,10 @@
                             {{ item.key }}
                         </div>
                         <div v-for="musicItem in item.data" class="listItem">
-                            <n-button size="small" style="width: 100%;">
+                            <n-button size="small" style="width: 100%;" @click="listItemClickEvent(musicItem)">
                                 <span style="width: 50%;"> {{ musicItem.name }}</span>
-                                <span style="width: 40%;"> {{ musicItem.zz }} </span>
-                                <span style="width: 10%;"> {{ musicItem.sj }} </span>
+                                <span style="width: 38%;"> {{ musicItem.zz }} </span>
+                                <span style="width: 12%;"> {{ musicItem.sj }} </span>
                             </n-button>
                         </div>
                     </div>
@@ -29,8 +29,10 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, defineProps, defineEmits } from "vue";
 import pinyin from 'pinyin';
+const props = defineProps(['musicData'])
+const emit = defineEmits(['onItemClick'])
 const isSelectKey = ref(true);
 const selectKeyData = ref([]);
 for (let i = 65; i <= 90; i++) {
@@ -39,55 +41,7 @@ for (let i = 65; i <= 90; i++) {
 for (let i = 65; i <= 90; i++) {
     selectKeyData.value.push("拼英" + String.fromCharCode(i))
 }
-const musicListData = ref([
-    {
-        name: "A Moment Apart",
-        zz: "Odesza",
-        sj: "03:54",
-    },
-    {
-        name: "aAA批发建材",
-        zz: "Odesza",
-        sj: "03:54",
-    },
-    {
-        name: "wwd fasgawg",
-        zz: "wdzfawgawg",
-        sj: "03:54",
-    },
-    {
-        name: "稻香",
-        zz: "周杰伦",
-        sj: "03:54",
-    },
-    {
-        name: "稻香",
-        zz: "周杰伦",
-        sj: "03:54",
-    }
-    ,
-    {
-        name: "稻香",
-        zz: "周杰伦",
-        sj: "03:54",
-    }
-    ,
-    {
-        name: "稻香",
-        zz: "周杰伦",
-        sj: "03:54",
-    },
-    {
-        name: "稻香",
-        zz: "周杰伦",
-        sj: "03:54",
-    },
-    {
-        name: "稻香",
-        zz: "周杰伦",
-        sj: "03:54",
-    }
-]);
+
 const data = ref([]);
 
 const getGroupKey = (str) => {
@@ -133,11 +87,15 @@ const groupByFirstLetter = (data) => {
         }
     });
 };
-data.value = groupByFirstLetter(musicListData.value)
+data.value = groupByFirstLetter(props.musicData)
 console.log(data.value);
 
 function keySelectClickEvent() {
     isSelectKey.value = !isSelectKey.value;
+}
+
+function listItemClickEvent(musicItem) {
+    emit("onItemClick", musicItem)
 }
 </script>
 

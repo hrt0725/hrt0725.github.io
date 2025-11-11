@@ -7,10 +7,10 @@
         </div>
         <div style="display: flex;gap: 5px;margin-top: 10px;justify-content: space-between;align-items: center;">
             <div style="display: flex;">
-                <n-avatar size="large" src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg" />
+                <n-avatar size="large" src="https://picsum.photos/200/200?random=1" />
                 <div style="display: flex;flex-direction: column;margin-left: 10px;">
-                    <span><strong>稻香</strong></span>
-                    <span>周杰伦</span>
+                    <span><strong>{{ props.itemData.name }}</strong></span>
+                    <span>{{ props.itemData.zz }}</span>
                 </div>
             </div>
             <div class="playControl">
@@ -46,22 +46,35 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { PlaySkipBackCircleOutline, PlayCircleOutline, StopCircleOutline, PlaySkipForwardCircleOutline } from "@vicons/ionicons5";
 import CilLoop from "./icons/CilLoop.vue";
 import CilLoop1 from "./icons/cilLoop1.vue";
 import FeRandom from "./icons/FeRandom.vue";
 import Sound from "./icons/Sound.vue";
 import NoSound from "./icons/NoSound.vue";
+const props = defineProps(['src', 'itemData'])
 const PlaybackProgress = ref(100);
 const SoundMount = ref(20);
 const isPlay = ref(true);
 const isSound = ref(true);
 const loopMod = ref(0);
+const audio = ref(null);
 
-
+onMounted(() => {
+    audio.value = new Audio(props.src);
+    console.log(props.src);
+})
 function PlayClickEvent() {
     isPlay.value = !isPlay.value;
+    console.log(props.src);
+    if (isPlay.value) {
+        audio.value.play()
+    } else {
+        audio.value.pause()
+    }
+    console.log(audio.value.currentTime);
+
 }
 function LoopClickEvent() {
     loopMod.value += 1;

@@ -17,6 +17,7 @@ export const useThemeStore = defineStore('Themer', () => {
 })
 
 export const useUserStore = defineStore('UserStore', () => {
-  const isClickMenu2Collapsed = ref(false)
-  return { isClickMenu2Collapsed }
+  const isClickMenu2Collapsed = ref(false);
+  const autoCacheFile = ref(true);
+  return { isClickMenu2Collapsed, autoCacheFile }
 })

@@ -6,21 +6,19 @@
                     <n-button type="primary" size="tiny" @click="themeBtn">{{ themeTitle }}</n-button>
                     <n-switch @click="changetheme" v-model:value="useThemeStore().isDark" />
                 </n-space>
-
             </n-anchor-link>
             <n-anchor-link title="其它">
                 <n-space>
                     <n-button type="primary" size="tiny"
-                        @click="useUserStore().isClickMenu2Collapsed = !useUserStore().isClickMenu2Collapsed">{{
-                            "在菜单选择后收起菜单" }}</n-button>
-                    <n-switch v-model:value="useUserStore().isClickMenu2Collapsed">
-                        <template #checked>
-                            {{ useUserStore().isClickMenu2Collapsed }}
-                        </template>
-                        <template #unchecked>
-                            {{ useUserStore().isClickMenu2Collapsed }}
-                        </template>
-                    </n-switch>
+                        @click="useUserStore().isClickMenu2Collapsed = !useUserStore().isClickMenu2Collapsed">
+                        在菜单选择后收起</n-button>
+                    <n-switch v-model:value="useUserStore().isClickMenu2Collapsed" />
+                </n-space>
+            </n-anchor-link>
+            <n-anchor-link title="音乐">
+                <n-space>
+                    <n-button type="primary" size="tiny">自动缓存文件</n-button>
+                    <n-switch v-model:value="useUserStore().autoCacheFile" />
                 </n-space>
             </n-anchor-link>
         </n-anchor>

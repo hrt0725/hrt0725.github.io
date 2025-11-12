@@ -7,6 +7,24 @@
                     <n-switch @click="changetheme" v-model:value="useThemeStore().isDark" />
                 </div>
             </n-anchor-link>
+            <n-anchor-link title="服务器">
+                <div class="configItem">
+                    <n-button type="primary" size="tiny">服务器地址</n-button>
+                    <n-input v-model:value="useUserStore().severAddr" size="tiny" autosize style="min-width: 200px;" />
+                    <n-spin v-if="isTesting" size="tiny" />
+                    <n-icon :color="isSuccess ? 'green' : 'red'" size="21" v-if="isTested">
+                        <Success v-if="isSuccess" />
+                        <Error v-if="!isSuccess" />
+                    </n-icon>
+                    <n-button type="primary" size="tiny" circle @click="testServerEvent">
+                        <template #icon>
+                            <n-icon>
+                                <Wifi />
+                            </n-icon>
+                        </template>
+                    </n-button>
+                </div>
+            </n-anchor-link>
             <n-anchor-link title="音乐">
                 <div class="configItem">
                     <n-button type="primary" size="tiny">自动缓存文件</n-button>
@@ -28,6 +46,7 @@
                     </n-popover>
                 </div>
             </n-anchor-link>
+
             <n-anchor-link title="其它">
                 <div class="configItem">
                     <n-button type="primary" size="tiny"
@@ -48,22 +67,28 @@ import { ref } from "vue";
 import { darkTheme } from "naive-ui";
 import { useThemeStore, useUserStore } from "@/stores/config";
 import Warning from "@/components/icons/Warning.vue";
+import Wifi from "@/components/icons/Wifi.vue";
+import Success from "@/components/icons/Success.vue";
+import Error from "@/components/icons/Error.vue";
 const themeTitle = ref("明亮");
-
+const isTesting = ref(false);
+const isTested = ref(false);
+const isSuccess = ref(true);
 
 const changetheme = () => {
     themeTitle.value = useThemeStore().theme == null ? "暗黑" : "明亮";
     useThemeStore().theme = useThemeStore().theme == null ? darkTheme : null;
-};
+}
+
 function themeBtn() {
     useThemeStore().isDark = !useThemeStore().isDark;
     changetheme()
 }
 
 function debugBtnEvent() {
-    console.log(useUserStore().musicSever);
-    console.log(useUserStore().musicSevers);
+    console.log(isSuccess.value);
 }
+
 function handleUpdateValue(value, option) {
     const userStore = useUserStore();
     if (value == "defMusicSever") {
@@ -74,6 +99,31 @@ function handleUpdateValue(value, option) {
         element.value === option.value && element.label === option.label
     );
     if (!existingItem) userStore.musicSevers.push(option);
+}
+
+function checkUrlStatus(url) {
+    return fetch(url, {
+        method: 'HEAD', // 使用HEAD请求，只获取响应头，不下载内容
+        mode: 'no-cors' // 对于跨域请求，使用no-cors模式
+    }).then(response => {
+        return true;
+    }).catch(error => {
+        console.log(`URL ${url} 不可访问:`, error.message);
+        return false;
+    });
+}
+
+function testServerEvent() {
+    isTesting.value = true;
+    isTested.value = false;
+    checkUrlStatus(useUserStore().severAddr).then((data) => {
+        isTested.value = true;
+        isTesting.value = false;
+        isSuccess.value = data;
+    }).catch((data) => {
+        isTested.value = true;
+        isSuccess.value = false;
+    })
 }
 </script>
 

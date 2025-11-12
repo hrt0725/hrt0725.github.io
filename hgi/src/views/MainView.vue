@@ -28,20 +28,25 @@
             </n-layout>
         </n-layout>
     </n-space>
-
-
 </template>
 
 <script setup>
-import { SettingsOutline, HomeOutline, MusicalNotesOutline,InformationCircleOutline } from "@vicons/ionicons5";
+import { SettingsOutline, HomeOutline, MusicalNotesOutline, InformationCircleOutline, DocumentTextOutline } from "@vicons/ionicons5";
+import CloudIcon from "@/components/icons/Cloud.vue";
+import ToolsIcon from "@/components/icons/ToolsIcon.vue";
+import GamepadIcon from "@/components/icons/GamepadIcon.vue";
+import Mouse from "@/components/icons/Mouse.vue";
 import { NIcon } from "naive-ui";
 import { ref, h } from "vue";
 import Config from "./TabItems/Config.vue";
 import WelCome from "./TabItems/WelCome.vue";
 import Music from "./TabItems/Music.vue";
 import Info from "./TabItems/Info.vue";
+import Document from "./TabItems/Document.vue";
+import Cloud from "./TabItems/Cloud.vue";
+import Tools from "./TabItems/Tools.vue";
+import Shu from "./TabItems/game/Shu.vue";
 import { useUserStore } from "@/stores/config";
-
 
 const activeDrawer = ref(false)
 const collapsed = ref(true)
@@ -50,7 +55,7 @@ const TabItemNum = ref(1)
 const menuOptions = [
     {
         label: "欢迎",
-        name: "welcome",
+        name: "Welcome",
         content: WelCome,
         icon: renderIcon(HomeOutline),
     },
@@ -61,8 +66,38 @@ const menuOptions = [
         icon: renderIcon(MusicalNotesOutline),
     },
     {
+        label: "工具",
+        name: "Tools",
+        content: Tools,
+        icon: renderIcon(ToolsIcon),
+    },
+    {
+        label: "云盘",
+        name: "Cloud",
+        content: Cloud,
+        icon: renderIcon(CloudIcon),
+    },
+    {
+        label: "游戏",
+        icon: renderIcon(GamepadIcon),
+        children: [
+            {
+                label: "鼠",
+                name: "Shu",
+                content: Shu,
+                icon: renderIcon(Mouse),
+            }
+        ]
+    },
+    {
+        label: "文档",
+        name: "Document",
+        content: Document,
+        icon: renderIcon(DocumentTextOutline),
+    },
+    {
         label: "设置",
-        name: "config",
+        name: "Config",
         content: Config,
         icon: renderIcon(SettingsOutline),
     },
@@ -72,7 +107,6 @@ const menuOptions = [
         content: Info,
         icon: renderIcon(InformationCircleOutline),
     }
-
 ];
 const activeTabName = ref(null)
 const panels = ref([]);

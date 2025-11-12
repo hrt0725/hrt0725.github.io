@@ -21,7 +21,6 @@ Object.keys(musicFiles).forEach(async (filePath) => {
     let fileName = fileNameEx.split('.').slice(0, -1).join('.')
     let musicName = fileName;
     let zz = "";
-    let sj = "";
     if (musicName.includes('-')) {
         let result = musicName.split("-")
         musicName = result[0];
@@ -31,7 +30,6 @@ Object.keys(musicFiles).forEach(async (filePath) => {
         fileNameEx: fileNameEx,
         name: musicName,
         zz: zz,
-        sj: "03:54",
     })
 });
 onMounted(() => {

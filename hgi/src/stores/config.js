@@ -22,6 +22,7 @@ export const useThemeStore = defineStore('Themer',
 export const useUserStore = defineStore('UserStore', () => {
   const isClickMenu2Collapsed = ref(true);
   const autoCacheFile = ref(true);
+  const severAddr = ref("https://hrt0725.github.io/music/");
   const defMusicSever = ref("https://hrt0725.github.io/music/");
   const musicSever = ref("https://hrt0725.github.io/music/");
   const musicSevers = ref([
@@ -38,7 +39,7 @@ export const useUserStore = defineStore('UserStore', () => {
       value: "http://127.0.0.1:5500/music/",
     },
   ]);
-  return { isClickMenu2Collapsed, autoCacheFile, defMusicSever, musicSever, musicSevers }
+  return { isClickMenu2Collapsed, autoCacheFile, severAddr, defMusicSever, musicSever, musicSevers }
 },
   { persist: true }
 )

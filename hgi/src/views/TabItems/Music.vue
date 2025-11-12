@@ -9,7 +9,7 @@
 import { ref, onMounted } from "vue";
 import MusicComponent from "@/components/MusicComponent.vue";
 import MusicList from "@/components/MusicList.vue";
-
+import { useUserStore } from "@/stores/config";
 
 const musicData = ref([]);
 const musicSrc = ref("");
@@ -35,11 +35,11 @@ Object.keys(musicFiles).forEach(async (filePath) => {
     })
 });
 onMounted(() => {
-    musicSrc.value = "https://hrt0725.github.io/music/" + musicData.value[0].fileNameEx;
+    musicSrc.value = useUserStore().musicSever + musicData.value[0].fileNameEx;
     itemData.value = musicData.value[0]
 })
 function onListItemClick(musicItem) {
-    musicSrc.value = "https://hrt0725.github.io/music/" + musicItem.fileNameEx;
+    musicSrc.value = useUserStore().musicSever + musicItem.fileNameEx;
     itemData.value = musicItem
 }
 
@@ -49,7 +49,7 @@ function onListItemClick(musicItem) {
 <style scoped>
 .musicList {
     min-width: 200px;
-    max-width: 600px;
+    max-width: 500px;
     margin-bottom: 5px;
 }
 

@@ -10,14 +10,17 @@ export const useCounterStore = defineStore('counter', () => {
   return { count, doubleCount, increment }
 })
 
-export const useThemeStore = defineStore('Themer', () => {
-  const theme = ref(null)
-  const isDark = ref(false)
-  return { isDark, theme }
-})
+export const useThemeStore = defineStore('Themer',
+  () => {
+    const theme = ref(null)
+    const isDark = ref(false)
+    return { isDark, theme }
+  },
+  { persist: true }
+)
 
 export const useUserStore = defineStore('UserStore', () => {
-  const isClickMenu2Collapsed = ref(false);
+  const isClickMenu2Collapsed = ref(true);
   const autoCacheFile = ref(true);
   const defMusicSever = ref("https://hrt0725.github.io/music/");
   const musicSever = ref("https://hrt0725.github.io/music/");
@@ -31,9 +34,11 @@ export const useUserStore = defineStore('UserStore', () => {
       value: "https://hrt0725.github.io/music/",
     },
     {
-      label: "https://127.0.0.1:5500/music/",
-      value: "https://127.0.0.1:5500/music/",
+      label: "http://127.0.0.1:5500/music/",
+      value: "http://127.0.0.1:5500/music/",
     },
   ]);
   return { isClickMenu2Collapsed, autoCacheFile, defMusicSever, musicSever, musicSevers }
-})
+},
+  { persist: true }
+)

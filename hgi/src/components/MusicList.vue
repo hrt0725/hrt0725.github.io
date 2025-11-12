@@ -23,7 +23,6 @@
                                     <n-scrollbar class="listMusicAuthor" x-scrollable style="margin-right: 5px;">
                                         <p> {{ musicItem.zz }} </p>
                                     </n-scrollbar>
-                                    <p> {{ musicItem.sj }} </p>
                                 </div>
                             </n-button>
                         </div>

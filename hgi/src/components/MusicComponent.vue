@@ -1,9 +1,9 @@
 <template>
     <n-card class="_musicMain">
         <div style="display: flex;gap: 10px;">
-            <n-tag :bordered="false" size="small">{{ currentTimeStr }}</n-tag>
+            <n-tag :bordered="false" size="small" style="width: 43px;">{{ currentTimeStr }}</n-tag>
             <n-slider size="small" style="min-width: 150px;" v-model:value="playbackProgress" :step="1" />
-            <n-tag :bordered="false" size="small">{{ allTimeStr }}</n-tag>
+            <n-tag :bordered="false" size="small" style="width: 43px;">{{ allTimeStr }}</n-tag>
         </div>
         <div style="display: flex; margin-top: 10px;">
             <n-avatar size="large" src="https://picsum.photos/200/200?random=1" />

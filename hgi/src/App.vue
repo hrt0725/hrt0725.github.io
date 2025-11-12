@@ -8,5 +8,4 @@
 
 <script setup>
 import { useThemeStore } from "./stores/config";
-document.title = "HGI"
 </script>

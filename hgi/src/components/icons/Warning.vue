@@ -1,0 +1,16 @@
+<template>
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+        viewBox="0 0 21 21"><!-- Icon from System UIcons by Corey Ginnivan - https://github.com/CoreyGinnivan/system-uicons/blob/master/LICENSE -->
+        <g fill="none" fillRule="evenodd">
+            <circle cx="10.5" cy="10.5" r="8" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M10.5 11.5v-5" />
+            <circle cx="10.5" cy="14.5" r="1" fill="currentColor" />
+        </g>
+    </svg>
+</template>
+
+<script>
+export default {
+    name: 'SystemUiconsWarningCircle'
+}
+</script>

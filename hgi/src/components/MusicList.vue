@@ -1,10 +1,10 @@
 <template>
-    <n-card>
+    <n-card class="listCard">
         <n-scrollbar style="max-height: 55vh;position: relative;">
             <transition name="scale">
                 <div v-if="!isSelectKey" class="keySelect">
                     <div @click="keySelectClickEvent" class="keySelectItem" v-for="keyItem in selectKeyData">
-                        <n-button size="small"> {{ keyItem }}</n-button>
+                        <n-button size="small" @click="scrollToAnchor(keyItem)"> {{ keyItem }}</n-button>
                     </div>
                 </div>
             </transition>
@@ -12,13 +12,19 @@
                 <div v-if="isSelectKey">
                     <div v-for="item in data">
                         <div class="keyMain" @click="keySelectClickEvent">
-                            {{ item.key }}
+                            <span :id="item.key">{{ item.key }}</span>
                         </div>
                         <div v-for="musicItem in item.data" class="listItem">
                             <n-button size="small" style="width: 100%;" @click="listItemClickEvent(musicItem)">
-                                <span style="width: 50%;"> {{ musicItem.name }}</span>
-                                <span style="width: 38%;"> {{ musicItem.zz }} </span>
-                                <span style="width: 12%;"> {{ musicItem.sj }} </span>
+                                <div style="width: 100%;display: flex;">
+                                    <n-scrollbar x-scrollable style="margin-right: 5px;">
+                                        <p style="width: 45%;"> {{ musicItem.name }}</p>
+                                    </n-scrollbar>
+                                    <n-scrollbar class="listMusicAuthor" x-scrollable style="margin-right: 5px;">
+                                        <p> {{ musicItem.zz }} </p>
+                                    </n-scrollbar>
+                                    <p> {{ musicItem.sj }} </p>
+                                </div>
                             </n-button>
                         </div>
                     </div>
@@ -41,6 +47,7 @@ for (let i = 65; i <= 90; i++) {
 for (let i = 65; i <= 90; i++) {
     selectKeyData.value.push("拼英" + String.fromCharCode(i))
 }
+selectKeyData.value.push("#");
 
 const data = ref([]);
 
@@ -93,10 +100,20 @@ console.log(data.value);
 function keySelectClickEvent() {
     isSelectKey.value = !isSelectKey.value;
 }
+function scrollToAnchor(selector) {
+    setTimeout(() => {
+        const element = document.getElementById(selector);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+        console.log(element);
+    }, 470);
 
+}
 function listItemClickEvent(musicItem) {
     emit("onItemClick", musicItem)
 }
+
 </script>
 
 <style scoped>
@@ -109,8 +126,6 @@ function listItemClickEvent(musicItem) {
     border-radius: 5px;
 
 }
-
-.listItem:hover {}
 
 .keySelect {
     display: flex;
@@ -129,6 +144,12 @@ function listItemClickEvent(musicItem) {
 </style>
 
 <style>
+@media (max-width: 650px) {
+    .listMusicAuthor {
+        display: none;
+    }
+}
+
 .scale-enter-active,
 .scale-leave-active {
     transition: all 0.3s ease;
@@ -153,5 +174,9 @@ function listItemClickEvent(musicItem) {
     text-align: justify;
     display: flex;
     width: 100%;
+}
+
+.listCard .n-card__content {
+    padding-right: 0px;
 }
 </style>

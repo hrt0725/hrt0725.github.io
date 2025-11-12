@@ -19,5 +19,21 @@ export const useThemeStore = defineStore('Themer', () => {
 export const useUserStore = defineStore('UserStore', () => {
   const isClickMenu2Collapsed = ref(false);
   const autoCacheFile = ref(true);
-  return { isClickMenu2Collapsed, autoCacheFile }
+  const defMusicSever = ref("https://hrt0725.github.io/music/");
+  const musicSever = ref("https://hrt0725.github.io/music/");
+  const musicSevers = ref([
+    {
+      label: "重设为默认",
+      value: "defMusicSever",
+    },
+    {
+      label: "https://hrt0725.github.io/music/",
+      value: "https://hrt0725.github.io/music/",
+    },
+    {
+      label: "https://127.0.0.1:5500/music/",
+      value: "https://127.0.0.1:5500/music/",
+    },
+  ]);
+  return { isClickMenu2Collapsed, autoCacheFile, defMusicSever, musicSever, musicSevers }
 })

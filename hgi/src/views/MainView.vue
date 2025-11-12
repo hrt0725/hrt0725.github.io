@@ -33,12 +33,13 @@
 </template>
 
 <script setup>
-import { SettingsOutline, HomeOutline, MusicalNotesOutline } from "@vicons/ionicons5";
+import { SettingsOutline, HomeOutline, MusicalNotesOutline,InformationCircleOutline } from "@vicons/ionicons5";
 import { NIcon } from "naive-ui";
 import { ref, h } from "vue";
 import Config from "./TabItems/Config.vue";
 import WelCome from "./TabItems/WelCome.vue";
 import Music from "./TabItems/Music.vue";
+import Info from "./TabItems/Info.vue";
 import { useUserStore } from "@/stores/config";
 
 
@@ -65,6 +66,12 @@ const menuOptions = [
         content: Config,
         icon: renderIcon(SettingsOutline),
     },
+    {
+        label: "信息",
+        name: "Info",
+        content: Info,
+        icon: renderIcon(InformationCircleOutline),
+    }
 
 ];
 const activeTabName = ref(null)

@@ -9,11 +9,11 @@
                 <div class="configItem">
                     <n-button type="primary" size="tiny">主题选择</n-button>
                     <n-select size="tiny" v-model:value="themeOptionsValue" :options="themeOptions"
-                        :consistent-menu-width="false" style="max-width: 200px;"/>
+                        :consistent-menu-width="false" style="max-width: 200px;" />
                 </div>
                 <div class="configItem">
                     <n-button type="primary" size="tiny">新主题</n-button>
-                    <n-button size="tiny">
+                    <n-button size="tiny" @click="newThemeEvent">
                         <template #icon>
                             <n-icon>
                                 <UpWardIcon />
@@ -61,7 +61,6 @@
                     </n-popover>
                 </div>
             </n-anchor-link>
-
             <n-anchor-link title="其它">
                 <div class="configItem">
                     <n-button type="primary" size="tiny"
@@ -81,11 +80,13 @@
 import { ref } from "vue";
 import { darkTheme } from "naive-ui";
 import { useThemeStore, useUserStore } from "@/stores/config";
+import { useBroadcastChannel } from '@/stores/broadcastChannel';
 import Warning from "@/components/icons/Warning.vue";
 import Wifi from "@/components/icons/Wifi.vue";
 import Success from "@/components/icons/Success.vue";
 import Error from "@/components/icons/Error.vue";
 import UpWardIcon from "@/components/icons/UpWardIcon.vue";
+import NewTheme from "@/views/TabItems/NewTheme.vue";
 const themeTitle = ref("明亮");
 const isTesting = ref(false);
 const isTested = ref(false);
@@ -122,18 +123,25 @@ function handleUpdateValue(value, option) {
     );
     if (!existingItem) userStore.musicSevers.push(option);
 }
-
-function checkUrlStatus(url) {
-    return fetch(url, {
-        method: 'HEAD', // 使用HEAD请求，只获取响应头，不下载内容
-        mode: 'no-cors' // 对于跨域请求，使用no-cors模式
-    }).then(response => {
+function isValidUrl(string) {
+    try {
+        new URL(string);
         return true;
-    }).catch(error => {
-        console.log(`URL ${url} 不可访问:`, error.message);
+    } catch (_) {
         return false;
-    });
+    }
 }
+function checkUrlStatus(url) {
+    if (!isValidUrl(url)) {
+        // 不是合法 URL，直接返回 false
+        return Promise.resolve(false);
+    }
+
+    return fetch(url, { method: 'GET' }) // 去掉 no-cors，假设服务器支持 CORS
+        .then(response => response.ok)
+        .catch(() => false);
+}
+
 
 function testServerEvent() {
     isTesting.value = true;
@@ -146,6 +154,17 @@ function testServerEvent() {
         isTested.value = true;
         isSuccess.value = false;
     })
+}
+
+function newThemeEvent() {
+    useBroadcastChannel().postMessage({
+        type: "newTab",
+        data: {
+            label: "新主题",
+            name: "NewTheme",
+            content: NewTheme,
+        }
+    });
 }
 </script>
 

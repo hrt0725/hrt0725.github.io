@@ -31,13 +31,13 @@
 </template>
 
 <script setup>
+import { ref, h, watch } from "vue";
+import { NIcon } from "naive-ui";
 import { SettingsOutline, HomeOutline, MusicalNotesOutline, InformationCircleOutline, DocumentTextOutline } from "@vicons/ionicons5";
 import CloudIcon from "@/components/icons/Cloud.vue";
 import ToolsIcon from "@/components/icons/ToolsIcon.vue";
 import GamepadIcon from "@/components/icons/GamepadIcon.vue";
 import Mouse from "@/components/icons/Mouse.vue";
-import { NIcon } from "naive-ui";
-import { ref, h } from "vue";
 import Config from "./TabItems/Config.vue";
 import WelCome from "./TabItems/WelCome.vue";
 import Music from "./TabItems/Music.vue";
@@ -47,6 +47,14 @@ import Cloud from "./TabItems/Cloud.vue";
 import Tools from "./TabItems/Tools.vue";
 import Shu from "./TabItems/game/Shu.vue";
 import { useUserStore } from "@/stores/config";
+import { useBroadcastChannel } from '@/stores/broadcastChannel';
+
+watch(() => useBroadcastChannel().flag,
+    (newValue) => {
+        console.log(useBroadcastChannel().msg);
+        if (useBroadcastChannel().msg.type == "newTab") onupdate(null, useBroadcastChannel().msg.data)
+    }
+);
 
 const activeDrawer = ref(false)
 const collapsed = ref(true)
@@ -120,7 +128,6 @@ function onupdate(key, item) {
         content: item.content
     })
     activeTabName.value = newName;
-
     if (useUserStore().isClickMenu2Collapsed) {
         collapsed.value = true;
         activeDrawer.value = false;

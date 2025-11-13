@@ -44,12 +44,12 @@
                 </n-space>
                 <n-qr-code style="margin-top: 5px;" v-if="!isQr" id="qr-code" :value="text"
                     :error-correction-level="errorCorrectionLevel" :size="size" :color="color"
-                    :background-color="backgroundColor" :icon-size="iconSize" />
-                <n-qr-code style="margin-top: 5px;" v-if="isQr" id="qr-code" :value="text"
+                    :background-color="backgroundColor" />
+                <n-qr-code style="margin-top: 5px;" v-if="isQr" :value="text"
                     :error-correction-level="errorCorrectionLevel" :size="size" :color="color"
                     :background-color="backgroundColor" :icon-src="isIcon ? iconUrl : null" :icon-size="iconSize" />
                 <br>
-                <n-button size="tiny" type="primary" @click="handleDownloadQRCode"
+                <n-button v-if="!isIcon" size="tiny" type="primary" @click="handleDownloadQRCode"
                     style="margin-left: 5px;margin-top: 5px;">下载</n-button>
             </n-collapse-item>
         </n-collapse>

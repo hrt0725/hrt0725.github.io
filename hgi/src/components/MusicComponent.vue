@@ -61,7 +61,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from "vue";
+import { ref, onMounted, onUnmounted, watch } from "vue";
 import { PlaySkipBackCircleOutline, PlayCircleOutline, StopCircleOutline, PlaySkipForwardCircleOutline } from "@vicons/ionicons5";
 import CilLoop from "./icons/CilLoop.vue";
 import CilLoop1 from "./icons/cilLoop1.vue";
@@ -100,7 +100,10 @@ onMounted(() => {
         console.log('音频已可流畅播放');
     });
 })
-
+onUnmounted(() => {
+    audio.value = null;
+    clearInterval(timer.value)
+})
 
 watch(() => props.src,
     (newValue) => {

@@ -1,9 +1,5 @@
 <template>
     <main class="TabItemMain">
-        <n-anchor>
-            <n-anchor-link title="QR码" />
-            <n-anchor-link title="MD5" />
-        </n-anchor>
         <div class="toolsMain">
             <QR />
             <Md5 />
@@ -25,6 +21,7 @@ import Md5 from "@/views/TabItems/Tools/Md5.vue";
     display: flex;
     flex-direction: column;
     gap: 5px;
+    min-width: 250px;
     margin-left: 5px;
 }
 </style>

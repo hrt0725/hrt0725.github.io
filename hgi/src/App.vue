@@ -1,8 +1,10 @@
 <template>
   <n-config-provider :theme="useThemeStore().theme">
-    <n-scrollbar style="height:100vh">
-      <RouterView />
-    </n-scrollbar>
+    <n-message-provider>
+      <n-scrollbar style="height:100vh">
+        <RouterView />
+      </n-scrollbar>
+    </n-message-provider>
   </n-config-provider>
 </template>
 

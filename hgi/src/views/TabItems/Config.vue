@@ -6,6 +6,21 @@
                     <n-button type="primary" size="tiny" @click="themeBtn">{{ themeTitle }}</n-button>
                     <n-switch @click="changetheme" v-model:value="useThemeStore().isDark" />
                 </div>
+                <div class="configItem">
+                    <n-button type="primary" size="tiny">主题选择</n-button>
+                    <n-select size="tiny" v-model:value="themeOptionsValue" :options="themeOptions"
+                        :consistent-menu-width="false" style="max-width: 200px;"/>
+                </div>
+                <div class="configItem">
+                    <n-button type="primary" size="tiny">新主题</n-button>
+                    <n-button size="tiny">
+                        <template #icon>
+                            <n-icon>
+                                <UpWardIcon />
+                            </n-icon>
+                        </template>
+                    </n-button>
+                </div>
             </n-anchor-link>
             <n-anchor-link title="服务器">
                 <div class="configItem">
@@ -70,10 +85,17 @@ import Warning from "@/components/icons/Warning.vue";
 import Wifi from "@/components/icons/Wifi.vue";
 import Success from "@/components/icons/Success.vue";
 import Error from "@/components/icons/Error.vue";
+import UpWardIcon from "@/components/icons/UpWardIcon.vue";
 const themeTitle = ref("明亮");
 const isTesting = ref(false);
 const isTested = ref(false);
 const isSuccess = ref(true);
+
+const themeOptionsValue = ref(true);
+const themeOptions = [
+    { label: "图片URL", value: true },
+    { label: "本地图片", value: false }
+];
 
 const changetheme = () => {
     themeTitle.value = useThemeStore().theme == null ? "暗黑" : "明亮";

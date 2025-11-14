@@ -1,5 +1,4 @@
 <template>
-
     <n-collapse>
         <n-collapse-item name="1">
             <template #header>

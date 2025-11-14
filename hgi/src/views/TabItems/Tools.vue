@@ -3,6 +3,7 @@
         <div class="toolsMain">
             <QR />
             <Md5 />
+            <Base64 />
         </div>
     </main>
 </template>
@@ -10,6 +11,7 @@
 <script setup>
 import QR from "@/views/TabItems/Tools/QR.vue";
 import Md5 from "@/views/TabItems/Tools/Md5.vue";
+import Base64 from "@/views/TabItems/Tools/Base64.vue";
 </script>
 
 <style scoped>

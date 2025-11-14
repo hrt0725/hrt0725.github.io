@@ -1,6 +1,6 @@
 <template>
     <main class="TabItemMain">
-        <n-card style="margin-bottom: 15px;width: max-content;">
+        <n-card class="welComeMain" style="margin-bottom: 15px;width: max-content;">
             <n-tabs default-value="signin" size="small" animated>
                 <n-tab-pane name="signin" tab="登录">
                     <n-form>
@@ -31,3 +31,12 @@
         </n-card>
     </main>
 </template>
+
+
+<style scoped>
+@media (max-width: 650px) {
+    .welComeMain {
+        margin: auto;
+    }
+}
+</style>

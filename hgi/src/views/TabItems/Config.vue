@@ -61,6 +61,15 @@
                     </n-popover>
                 </div>
             </n-anchor-link>
+            <n-anchor-link title="工具">
+                <n-anchor-link title="Monaco">
+                    <div class="configItem">
+                        <n-button type="primary" size="tiny">主题</n-button>
+                        <n-select v-model:value="useUserStore().codeTheme" :options="useUserStore().codeThemes"
+                            size="tiny" style="max-width: max-content;" :consistent-menu-width="false" />
+                    </div>
+                </n-anchor-link>
+            </n-anchor-link>
             <n-anchor-link title="其它">
                 <div class="configItem">
                     <n-button type="primary" size="tiny"
@@ -101,16 +110,16 @@ const themeOptions = [
 const changetheme = () => {
     themeTitle.value = useThemeStore().theme == null ? "暗黑" : "明亮";
     useThemeStore().theme = useThemeStore().theme == null ? darkTheme : null;
-}
+};
 
 function themeBtn() {
     useThemeStore().isDark = !useThemeStore().isDark;
     changetheme()
-}
+};
 
 function debugBtnEvent() {
     console.log(isSuccess.value);
-}
+};
 
 function handleUpdateValue(value, option) {
     const userStore = useUserStore();
@@ -122,7 +131,8 @@ function handleUpdateValue(value, option) {
         element.value === option.value && element.label === option.label
     );
     if (!existingItem) userStore.musicSevers.push(option);
-}
+};
+
 function isValidUrl(string) {
     try {
         new URL(string);
@@ -130,18 +140,16 @@ function isValidUrl(string) {
     } catch (_) {
         return false;
     }
-}
+};
+
 function checkUrlStatus(url) {
     if (!isValidUrl(url)) {
-        // 不是合法 URL，直接返回 false
         return Promise.resolve(false);
     }
-
-    return fetch(url, { method: 'GET' }) // 去掉 no-cors，假设服务器支持 CORS
+    return fetch(url, { method: 'GET' })
         .then(response => response.ok)
         .catch(() => false);
-}
-
+};
 
 function testServerEvent() {
     isTesting.value = true;
@@ -154,7 +162,7 @@ function testServerEvent() {
         isTested.value = true;
         isSuccess.value = false;
     })
-}
+};
 
 function newThemeEvent() {
     useBroadcastChannel().postMessage({
@@ -165,9 +173,8 @@ function newThemeEvent() {
             content: NewTheme,
         }
     });
-}
+};
 </script>
-
 
 <style scoped>
 .configItem {

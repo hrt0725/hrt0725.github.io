@@ -105,18 +105,17 @@ onUnmounted(() => {
     clearInterval(timer.value)
 })
 
-watch(() => props.src,
-    (newValue) => {
-        audio.value.src = newValue;
-        clearInterval(timer.value);
-        audio.value.pause();
-        canPlay.value = false;
-        isPlay.value = false;
-        isloaded.value = false;
-        loadPercentage.value = 0;
-        playbackProgress.value = 0;
-        currentTimeStr.value = time2ddd(0);
-    }
+watch(() => props.src, (newValue) => {
+    audio.value.src = newValue;
+    clearInterval(timer.value);
+    audio.value.pause();
+    canPlay.value = false;
+    isPlay.value = false;
+    isloaded.value = false;
+    loadPercentage.value = 0;
+    playbackProgress.value = 0;
+    currentTimeStr.value = time2ddd(0);
+}
 );
 
 watch(() => SoundMount.value,

@@ -12,7 +12,7 @@
                 <n-checkbox size="small" v-model:checked="isCapital" label="大写" />
                 <n-button @click="md5ValueClickEvent" size="tiny" type="primary" style="min-width: 200px;">{{
                     md5Value
-                }}</n-button>
+                    }}</n-button>
             </n-space>
         </n-collapse-item>
     </n-collapse>

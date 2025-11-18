@@ -1,0 +1,37 @@
+export const Languages = [
+    { label: "JavaScript", value: "javascript" },
+    { label: "TypeScript", value: "typescript" },
+    { label: "JSON", value: "json" },
+    { label: "HTML", value: "html" },
+    { label: "CSS", value: "css" },
+    { label: "Less", value: "less" },
+    { label: "SCSS", value: "scss" },
+    { label: "Markdown", value: "markdown" },
+    { label: "XML", value: "xml" },
+    { label: "YAML", value: "yaml" },
+
+    { label: "Python", value: "python" },
+    { label: "Java", value: "java" },
+    { label: "C", value: "c" },
+    { label: "C++", value: "cpp" },
+    { label: "C#", value: "csharp" },
+    { label: "Go", value: "go" },
+    { label: "PHP", value: "php" },
+    { label: "Ruby", value: "ruby" },
+    { label: "Swift", value: "swift" },
+    { label: "Kotlin", value: "kotlin" },
+    { label: "Rust", value: "rust" },
+    { label: "Dart", value: "dart" },
+    { label: "R", value: "r" },
+
+    { label: "Shell", value: "shell" },
+    { label: "PowerShell", value: "powershell" },
+
+    { label: "SQL", value: "sql" },
+
+    { label: "Lua", value: "lua" },
+    { label: "Objective-C", value: "objective-c" },
+    { label: "Dockerfile", value: "dockerfile" },
+    { label: "GraphQL", value: "graphql" },
+    { label: "TOML", value: "toml" },
+]

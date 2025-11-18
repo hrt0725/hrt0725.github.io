@@ -39,7 +39,22 @@ export const useUserStore = defineStore('UserStore', () => {
       value: "http://127.0.0.1:5500/music/",
     },
   ]);
-  return { isClickMenu2Collapsed, autoCacheFile, severAddr, defMusicSever, musicSever, musicSevers }
+  const codeTheme = ref("vs");
+  const codeThemes = ref([
+    {
+      label: "明亮",
+      value: "vs",
+    },
+    {
+      label: "黑暗",
+      value: "vs-dark",
+    },
+    {
+      label: "高对比度",
+      value: "hc-black",
+    }
+  ]);
+  return { isClickMenu2Collapsed, autoCacheFile, severAddr, defMusicSever, musicSever, musicSevers, codeTheme, codeThemes }
 },
   { persist: true }
 )

@@ -9,7 +9,6 @@ export default defineConfig({
   plugins: [
     vue(),
     vueDevTools(),
- 
   ],
   resolve: {
     alias: {
@@ -18,5 +17,8 @@ export default defineConfig({
   },
   build: {
     outDir: "../",
-  }
+  },
+  define: {
+    'process.env': {}
+  },
 })

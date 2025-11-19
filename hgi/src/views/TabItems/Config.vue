@@ -78,6 +78,12 @@
                     <n-switch v-model:value="useUserStore().isClickMenu2Collapsed" />
                 </div>
                 <div class="configItem">
+                    <n-button type="primary" size="tiny"
+                        @click="useUserStore().multiwindowing = !useUserStore().multiwindowing">
+                        功能标签多开</n-button>
+                    <n-switch v-model:value="useUserStore().multiwindowing" />
+                </div>
+                <div class="configItem">
                     <n-button type="primary" size="tiny" @click="debugBtnEvent">调试按钮</n-button>
                 </div>
             </n-anchor-link>

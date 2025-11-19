@@ -1,7 +1,7 @@
 export const InfoPane = {
     info: {
-        version: "1.1.0",
-        lastUpDate: "2025.11.18",
+        version: "1.1.1",
+        lastUpDate: "2025.11.19",
     },
     externalDependency: [
         {
@@ -32,8 +32,18 @@ export const InfoPane = {
             title: "pinia-plugin-persistedstate",
             href: "https://www.npmjs.com/package/pinia-plugin-persistedstate"
         },
+        {
+            title: "Excalidraw",
+            href: "https://docs.excalidraw.com/"
+        },
     ],
     timeLine: [
+        {
+            type: "success",
+            title: "V1.1.1",
+            content: "Excalidraw",
+            time: "2025年11月19日 17:01"
+        },
         {
             type: "success",
             title: "V1.1.0",

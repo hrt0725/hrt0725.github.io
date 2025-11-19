@@ -2,7 +2,7 @@
     <n-collapse :on-item-header-click="itemClickEvent">
         <n-collapse-item name="1">
             <template #header>
-                <n-button size="tiny" type="primary">Monaco</n-button>
+                <n-button size="tiny" type="primary">控制台</n-button>
             </template>
             <n-space vertical>
                 <div class="codeToolsMain">
@@ -48,26 +48,24 @@ import htmlWorker from 'monaco-editor/esm/vs/language/html/html.worker?worker'
 import tsWorker from 'monaco-editor/esm/vs/language/typescript/ts.worker?worker'
 import { useUserStore } from '@/stores/config';
 import { Languages } from "@/data/Monaco/Language";
+import { addEvent, removeEvent } from "@/utils/log";
+
 const editorContainer = ref(null);
 let editorInstance = null;
 const codeStr = ref(`console.log('Hello Monaco Editor in Vue 3!');`);
-
 const language = ref("javascript");
 const languages = ref(Languages);
-let logBack = window.console.log;
 const isShowResult = ref(true);
 const codeRunResult = ref([]);
 
-
 onMounted(() => {
-    window.console.log = (data) => {
-        logBack(data);
+    addEvent("2UI", (data) => {
         codeRunResult.value.push(data);
-    }
+    });
 });
 
 onUnmounted(() => {
-    window.console.log = logBack;
+    removeEvent("2UI");
 });
 
 self.MonacoEnvironment = {

@@ -6,6 +6,7 @@
             <Base64 />
             <JavaScript />
             <TimeCalculate />
+            <IP />
         </div>
     </main>
 </template>
@@ -16,6 +17,7 @@ import Md5 from "@/views/TabItems/Tools/Md5.vue";
 import Base64 from "@/views/TabItems/Tools/Base64.vue";
 import JavaScript from "@/views/TabItems/Tools/JavaScript.vue";
 import TimeCalculate from "./Tools/TimeCalculate.vue";
+import IP from "./Tools/IP.vue";
 </script>
 
 <style scoped>

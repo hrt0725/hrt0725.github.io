@@ -37,6 +37,7 @@ import { SettingsOutline, HomeOutline, MusicalNotesOutline, InformationCircleOut
 import CloudIcon from "@/components/icons/Cloud.vue";
 import ToolsIcon from "@/components/icons/ToolsIcon.vue";
 import GamepadIcon from "@/components/icons/GamepadIcon.vue";
+import InkPenIcon from "@/components/icons/InkPenIcon.vue";
 import Mouse from "@/components/icons/Mouse.vue";
 import Config from "./TabItems/Config.vue";
 import WelCome from "./TabItems/WelCome.vue";
@@ -45,9 +46,11 @@ import Info from "./TabItems/Info.vue";
 import Document from "./TabItems/Document.vue";
 import Cloud from "./TabItems/Cloud.vue";
 import Tools from "./TabItems/Tools.vue";
-import Shu from "./TabItems/game/Shu.vue";
+import Excalidraw from "./TabItems/Excalidraw.vue";
+import Shu from "./TabItems/game/Sudoku.vue";
 import { useUserStore } from "@/stores/config";
 import { useBroadcastChannel } from '@/stores/broadcastChannel';
+import SudokuIcon from "@/components/icons/SudokuIcon.vue";
 
 watch(() => useBroadcastChannel().flag,
     (newValue) => {
@@ -80,6 +83,12 @@ const menuOptions = [
         icon: renderIcon(ToolsIcon),
     },
     {
+        label: "Excalidraw",
+        name: "Excalidraw",
+        content: Excalidraw,
+        icon: renderIcon(InkPenIcon),
+    },
+    {
         label: "云盘",
         name: "Cloud",
         content: Cloud,
@@ -90,10 +99,10 @@ const menuOptions = [
         icon: renderIcon(GamepadIcon),
         children: [
             {
-                label: "鼠",
-                name: "Shu",
+                label: "数独",
+                name: "sudoku",
                 content: Shu,
-                icon: renderIcon(Mouse),
+                icon: renderIcon(SudokuIcon),
             }
         ]
     },
@@ -120,6 +129,10 @@ const activeTabName = ref(null)
 const panels = ref([]);
 
 function onupdate(key, item) {
+    if (panels.value.some(panle => panle.tab === item.label && item.label === 'Excalidraw')) return;
+    if (!useUserStore().multiwindowing) {
+        if (panels.value.some(panle => panle.tab === item.label)) return;
+    }
     TabItemNum.value += 1;
     let newName = item.name + TabItemNum.value;
     panels.value.push({

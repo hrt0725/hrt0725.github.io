@@ -85,6 +85,7 @@ const timer = ref(null);
 
 onMounted(() => {
     audio.value = new Audio();
+    audio.value.preload = "auto";
     audio.value.volume = SoundMount.value / 100;
     audio.value.addEventListener('progress', function () {
         loadPercentage.value += 10;

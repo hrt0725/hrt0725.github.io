@@ -22,6 +22,7 @@ export const useThemeStore = defineStore('Themer',
 export const useUserStore = defineStore('UserStore', () => {
   const isClickMenu2Collapsed = ref(true);
   const autoCacheFile = ref(true);
+  const multiwindowing = ref(false);
   const severAddr = ref("");
   const defMusicSever = ref("https://hrt0725.github.io/music/");
   const musicSever = ref("https://hrt0725.github.io/music/");
@@ -54,7 +55,7 @@ export const useUserStore = defineStore('UserStore', () => {
       value: "hc-black",
     }
   ]);
-  return { isClickMenu2Collapsed, autoCacheFile, severAddr, defMusicSever, musicSever, musicSevers, codeTheme, codeThemes }
+  return { isClickMenu2Collapsed, autoCacheFile, severAddr, defMusicSever, musicSever, musicSevers, codeTheme, codeThemes, multiwindowing }
 },
   { persist: true }
 )

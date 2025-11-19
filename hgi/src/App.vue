@@ -10,4 +10,5 @@
 
 <script setup>
 import { useThemeStore } from "./stores/config";
+
 </script>

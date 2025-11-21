@@ -8,12 +8,14 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "node ./script/gmd.js && vite build",
+    "buildmusics": "node ./script/gen-musics-json.js",
+    "build": "node ./script/build-pre.js && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
     "@excalidraw/excalidraw": "^0.18.0",
     "@vicons/ionicons5": "^0.13.0",
+    "axios": "^1.13.2",
     "monaco-editor": "^0.54.0",
     "pinia": "^3.0.3",
     "pinia-plugin-persistedstate": "^4.7.1",

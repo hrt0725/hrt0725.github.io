@@ -46,10 +46,35 @@
                     <n-switch v-model:value="useUserStore().autoCacheFile" />
                 </div>
                 <div class="configItem">
-                    <n-button type="primary" size="tiny">文件服务器URL</n-button>
+                    <n-button type="primary" size="tiny">服务器</n-button>
                     <n-select v-model:value="useUserStore().musicSever" :options="useUserStore().musicSevers"
                         size="tiny" style="max-width: max-content;" filterable tag :consistent-menu-width="false"
                         @update:value="handleUpdateValue" />
+                </div>
+                <div class="configItem">
+                    <n-button type="primary" size="tiny">清单路径</n-button>
+                    <n-input v-model:value="useUserStore().musicManifestPath" size="tiny" placeholder="路径"
+                        style="max-width: 215px;">
+                        <template #prefix>
+                            {{ useUserStore().musicSever }}
+                        </template>
+                    </n-input>
+                    <n-button size="tiny" @click="openURL(useUserStore().musicSever + useUserStore().musicManifestPath)">
+                        <template #icon>
+                            <n-icon>
+                                <UpWardIcon />
+                            </n-icon>
+                        </template>
+                    </n-button>
+                </div>
+                <div class="configItem">
+                    <n-button type="primary" size="tiny">文件路径</n-button>
+                    <n-input v-model:value="useUserStore().musicFilePath" size="tiny" placeholder="路径"
+                        style="max-width: 215px;">
+                        <template #prefix>
+                            {{ useUserStore().musicSever }}
+                        </template>
+                    </n-input>
                     <n-popover trigger="hover">
                         <template #trigger>
                             <n-icon size="21">
@@ -96,6 +121,7 @@ import { ref } from "vue";
 import { darkTheme } from "naive-ui";
 import { useThemeStore, useUserStore } from "@/stores/config";
 import { useBroadcastChannel } from '@/stores/broadcastChannel';
+import { openURL } from '@/utils/common';
 import Warning from "@/components/icons/Warning.vue";
 import Wifi from "@/components/icons/Wifi.vue";
 import Success from "@/components/icons/Success.vue";

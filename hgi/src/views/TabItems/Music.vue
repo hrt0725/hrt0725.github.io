@@ -1,46 +1,52 @@
 <template>
     <main class="TabItemMain">
-        <MusicList :musicData="musicData" class="musicList" @on-item-click="onListItemClick" />
-        <MusicComponent v-model:src="musicSrc" v-model:itemData="itemData" class="mainMusic" />
+        <MusicList :musicListData="musicListData" class="musicList" @on-item-click="onListItemClick" />
+        <MusicComponent v-model:src="currentMusicSrc" v-model:itemData="currentMusicData" class="mainMusic" />
     </main>
 </template>
 
 <script setup>
 import { ref, onMounted } from "vue";
+import axios from 'axios';
+import { useBroadcastChannel } from "@/stores/broadcastChannel";
 import MusicComponent from "@/components/MusicComponent.vue";
 import MusicList from "@/components/MusicList.vue";
 import { useUserStore } from "@/stores/config";
 
-const musicData = ref([]);
-const musicSrc = ref("");
-const itemData = ref({});
-
-import musics from "../../../public/data/musics.json";
-for (let index = 0; index < musics.length; index++) {
-    let fileNameEx = musics[index];
-    let fileName = fileNameEx.split('.').slice(0, -1).join('.');
-    let musicName = fileName;
-    let zz = "";
-    if (musicName.includes('-')) {
-        let result = musicName.split("-");
-        musicName = result[0];
-        zz = result[1];
-    };
-    musicData.value.push({
-        fileNameEx: fileNameEx,
-        name: musicName,
-        zz: zz,
-    });
-};
+const musicListData = ref([]);
+const currentMusicSrc = ref("");
+const currentMusicData = ref({});
 
 onMounted(() => {
-    musicSrc.value = useUserStore().musicSever + musicData.value[0].fileNameEx;
-    itemData.value = musicData.value[0];
+    axios.get(useUserStore().musicSever + useUserStore().musicManifestPath)
+        .then(response => {
+            for (let index = 0; index < response.data.length; index++) {
+                let fileNameEx = response.data[index];
+                let fileName = fileNameEx.split('.').slice(0, -1).join('.');
+                let musicName = fileName;
+                let zz = "";
+                if (musicName.includes('-')) {
+                    let result = musicName.split("-");
+                    musicName = result[0];
+                    zz = result[1];
+                };
+                musicListData.value.push({
+                    fileNameEx: fileNameEx,
+                    name: musicName,
+                    zz: zz,
+                });
+            };
+            currentMusicSrc.value = useUserStore().musicSever + useUserStore().musicFilePath + musicListData.value[0].fileNameEx;
+            currentMusicData.value = musicListData.value[0];
+            useBroadcastChannel().postMessage("musicJsonLoaded");
+        }).catch(error => {
+            console.error('获取音乐列表失败:', error);
+        });
 });
 
 function onListItemClick(musicItem) {
-    musicSrc.value = useUserStore().musicSever + musicItem.fileNameEx;
-    itemData.value = musicItem;
+    currentMusicSrc.value = useUserStore().musicSever + musicItem.fileNameEx;
+    currentMusicData.value = musicItem;
 };
 
 </script>

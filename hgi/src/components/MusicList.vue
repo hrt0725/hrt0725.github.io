@@ -34,69 +34,21 @@
 </template>
 
 <script setup>
-import { ref, defineProps, defineEmits } from "vue";
-import pinyin from 'pinyin';
-const props = defineProps(['musicData']);
+import { ref, defineProps, defineEmits, watch } from "vue";
+import { useBroadcastChannel } from "@/stores/broadcastChannel";
+import { groupByFirstLetter } from "@/utils/musicList";
+const props = defineProps(['musicListData']);
 const emit = defineEmits(['onItemClick']);
 const isSelectKey = ref(true);
 const selectKeyData = ref([]);
-for (let i = 65; i <= 90; i++) {
-    selectKeyData.value.push(String.fromCharCode(i));
-}
-
-for (let i = 65; i <= 90; i++) {
-    selectKeyData.value.push("拼英" + String.fromCharCode(i));
-}
-selectKeyData.value.push("#");
-
 const data = ref([]);
 
-const getGroupKey = (str) => {
-    if (!str) return '#';
-    const firstChar = str.charAt(0);
-    const isChinese = /[\u4e00-\u9fa5]/.test(firstChar);
-    if (isChinese) {
-        const py = pinyin(firstChar, {
-            style: pinyin.STYLE_FIRST_LETTER,
-        });
-        return `拼英${py[0][0].toUpperCase()}`;
-    } else {
-        const firstLetter = firstChar.toUpperCase();
-        return /[A-Z]/.test(firstLetter) ? firstLetter : '#';
+listLableInit();
+watch(() => useBroadcastChannel().flag, () => {
+    if (useBroadcastChannel().msg == 'musicJsonLoaded') {
+        data.value = groupByFirstLetter(props.musicListData);
     }
-};
-
-const groupByFirstLetter = (data) => {
-    const groups = {};
-    data.forEach(item => {
-        const groupKey = getGroupKey(item.name);
-        if (!groups[groupKey]) {
-            groups[groupKey] = [];
-        }
-        groups[groupKey].push(item);
-    });
-    const result = Object.keys(groups).map(key => ({
-        key,
-        data: groups[key]
-    }));
-    return result.sort((a, b) => {
-        if (a.key === '#') return 1;
-        if (b.key === '#') return -1;
-        const aIsPinyin = a.key.startsWith('拼英');
-        const bIsPinyin = b.key.startsWith('拼英');
-        if (!aIsPinyin && !bIsPinyin) {
-            return a.key.localeCompare(b.key);
-        } else if (aIsPinyin && !bIsPinyin) {
-            return 1;
-        } else if (!aIsPinyin && bIsPinyin) {
-            return -1;
-        } else {
-            return a.key.localeCompare(b.key);
-        }
-    });
-};
-data.value = groupByFirstLetter(props.musicData);
-console.log(data.value);
+});
 
 function keySelectClickEvent() {
     isSelectKey.value = !isSelectKey.value;
@@ -110,13 +62,21 @@ function scrollToAnchor(selector) {
         }
         console.log(element);
     }, 470);
-
 };
 
 function listItemClickEvent(musicItem) {
     emit("onItemClick", musicItem)
-}
+};
 
+function listLableInit() {
+    for (let i = 65; i <= 90; i++) {
+        selectKeyData.value.push(String.fromCharCode(i));
+    };
+    for (let i = 65; i <= 90; i++) {
+        selectKeyData.value.push("拼英" + String.fromCharCode(i));
+    };
+    selectKeyData.value.push("#");
+};
 </script>
 
 <style scoped>
@@ -127,7 +87,6 @@ function listItemClickEvent(musicItem) {
     margin-right: 15px;
     padding: 3px 10px;
     border-radius: 5px;
-
 }
 
 .keySelect {
@@ -157,7 +116,6 @@ function listItemClickEvent(musicItem) {
 .scale-leave-active {
     transition: all 0.3s ease;
     transform-origin: center;
-
 }
 
 .scale-enter-from,

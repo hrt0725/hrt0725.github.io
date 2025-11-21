@@ -24,20 +24,23 @@ export const useUserStore = defineStore('UserStore', () => {
   const autoCacheFile = ref(true);
   const multiwindowing = ref(false);
   const severAddr = ref("");
-  const defMusicSever = ref("https://hrt0725.github.io/music/");
-  const musicSever = ref("https://hrt0725.github.io/music/");
+  const defMusicSever = ref("https://hrt0725.github.io/");
+  const musicSever = ref("https://hrt0725.github.io/");
+  const musicManifestPath = ref("data/musics.json");
+  const musicFilePath = ref("music/");
+
   const musicSevers = ref([
     {
       label: "重设为默认",
       value: "defMusicSever",
     },
     {
-      label: "https://hrt0725.github.io/music/",
-      value: "https://hrt0725.github.io/music/",
+      label: "https://hrt0725.github.io/",
+      value: "https://hrt0725.github.io/",
     },
     {
-      label: "http://127.0.0.1:5500/music/",
-      value: "http://127.0.0.1:5500/music/",
+      label: "http://127.0.0.1:5500/",
+      value: "http://127.0.0.1:5500/",
     },
   ]);
   const codeTheme = ref("vs");
@@ -55,7 +58,7 @@ export const useUserStore = defineStore('UserStore', () => {
       value: "hc-black",
     }
   ]);
-  return { isClickMenu2Collapsed, autoCacheFile, severAddr, defMusicSever, musicSever, musicSevers, codeTheme, codeThemes, multiwindowing }
+  return { isClickMenu2Collapsed, autoCacheFile, severAddr, defMusicSever, musicSever, musicManifestPath, musicFilePath, musicSevers, codeTheme, codeThemes, multiwindowing }
 },
   { persist: true }
 )

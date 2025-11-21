@@ -1,3 +1,10 @@
+export function openURL(url) {
+    const a = document.createElement('a');
+    a.href = url;
+    a.target = "_blank";
+    a.click();
+}
+
 export function copy2Clipboard(text) {
     return new Promise((resolve, reject) => {
         if (!navigator.clipboard) {

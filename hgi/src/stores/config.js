@@ -28,6 +28,8 @@ export const useUserStore = defineStore('UserStore', () => {
   const musicSever = ref("https://hrt0725.github.io/");
   const musicManifestPath = ref("data/musics.json");
   const musicFilePath = ref("music/");
+  const themeOptionsValue = ref({});
+  const themeOptions = ref([]);
 
   const musicSevers = ref([
     {
@@ -58,7 +60,7 @@ export const useUserStore = defineStore('UserStore', () => {
       value: "hc-black",
     }
   ]);
-  return { isClickMenu2Collapsed, autoCacheFile, severAddr, defMusicSever, musicSever, musicManifestPath, musicFilePath, musicSevers, codeTheme, codeThemes, multiwindowing }
+  return { isClickMenu2Collapsed, autoCacheFile, severAddr, defMusicSever, musicSever, musicManifestPath, musicFilePath, musicSevers, codeTheme, codeThemes, multiwindowing, themeOptionsValue, themeOptions }
 },
   { persist: true }
 )

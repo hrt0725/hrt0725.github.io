@@ -23,6 +23,29 @@ export function selectImageFile() {
     });
 }
 
+export function selectJsonFile() {
+    return new Promise((resolve, reject) => {
+        const fileEle = document.createElement("input");
+        fileEle.type = "file";
+        fileEle.accept = ".json"; // 只允许选择 json 文件
+        fileEle.onchange = async () => {
+            const file = fileEle.files?.[0];
+            if (!file) {
+                return reject("未选择文件");
+            }
+            try {
+                const text = await file.text();  // 读取文本内容
+                const jsonData = JSON.parse(text); // 解析 JSON
+                return resolve(jsonData);
+            } catch (err) {
+                return reject("文件解析失败: " + err);
+            }
+        };
+
+        fileEle.click();
+    });
+}
+
 
 export function imageFile2Base64(file) {
     return new Promise((resolve, reject) => {

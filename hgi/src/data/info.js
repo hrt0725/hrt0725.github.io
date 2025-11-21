@@ -1,7 +1,7 @@
 export const InfoPane = {
     info: {
-        version: "1.1.3",
-        lastUpDate: "2025.11.21",
+        version: "1.1.4",
+        lastUpDate: "2025.11.21 22:05",
     },
     externalDependency: [
         {
@@ -42,6 +42,12 @@ export const InfoPane = {
         },
     ],
     timeLine: [
+        {
+            type: "success",
+            title: "V1.1.4",
+            content: "主题风格化",
+            time: "2025年11月21日 22:05"
+        },
         {
             type: "success",
             title: "V1.1.3",

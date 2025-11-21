@@ -8,8 +8,9 @@
                 </div>
                 <div class="configItem">
                     <n-button type="primary" size="tiny">主题选择</n-button>
-                    <n-select size="tiny" v-model:value="themeOptionsValue" :options="themeOptions"
-                        :consistent-menu-width="false" style="max-width: 200px;" />
+                    <n-select size="tiny" v-model:value="themeOptionsValue" :options="useUserStore().themeOptions"
+                        :consistent-menu-width="false" style="max-width: 180px;" />
+                    <n-button type="primary" secondary size="tiny" @click="addThemeEvent">导入主题</n-button>
                 </div>
                 <div class="configItem">
                     <n-button type="primary" size="tiny">新主题</n-button>
@@ -59,7 +60,8 @@
                             {{ useUserStore().musicSever }}
                         </template>
                     </n-input>
-                    <n-button size="tiny" @click="openURL(useUserStore().musicSever + useUserStore().musicManifestPath)">
+                    <n-button size="tiny"
+                        @click="openURL(useUserStore().musicSever + useUserStore().musicManifestPath)">
                         <template #icon>
                             <n-icon>
                                 <UpWardIcon />
@@ -117,26 +119,28 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { darkTheme } from "naive-ui";
+import { h, ref } from "vue";
+import { darkTheme, useDialog, NInput, NButton } from "naive-ui";
 import { useThemeStore, useUserStore } from "@/stores/config";
 import { useBroadcastChannel } from '@/stores/broadcastChannel';
 import { openURL } from '@/utils/common';
+import { selectJsonFile } from '@/utils/file';
 import Warning from "@/components/icons/Warning.vue";
 import Wifi from "@/components/icons/Wifi.vue";
 import Success from "@/components/icons/Success.vue";
 import Error from "@/components/icons/Error.vue";
 import UpWardIcon from "@/components/icons/UpWardIcon.vue";
 import NewTheme from "@/views/TabItems/NewTheme.vue";
+const dialog = useDialog();
 const themeTitle = ref("明亮");
 const isTesting = ref(false);
 const isTested = ref(false);
 const isSuccess = ref(true);
 
-const themeOptionsValue = ref(true);
+const newThemeName = ref("");
+const themeOptionsValue = ref(null);
 const themeOptions = [
     { label: "图片URL", value: true },
-    { label: "本地图片", value: false }
 ];
 
 const changetheme = () => {
@@ -147,6 +151,32 @@ const changetheme = () => {
 function themeBtn() {
     useThemeStore().isDark = !useThemeStore().isDark;
     changetheme()
+};
+
+function addThemeEvent() {
+    dialog.info({
+        title: "添加主题",
+        content: () => h(NInput, {
+            placeholder: "请输入内容",
+            size: "tiny",
+            style: "width:200px",
+            value: newThemeName.value,
+            onUpdateValue: v => (newThemeName.value = v)
+        }),
+        style: "width:max-content;height:max-content",
+        action: () => h(NButton, {
+            type: "primary",
+            size: "tiny",
+            onClick: () => {
+                dialog.destroyAll();
+                selectJsonFile().then(json => {
+                    useUserStore().themeOptions.push({ label: newThemeName, value: json })
+                }).catch(err => {
+                    console.error(err);
+                });
+            }
+        }, { default: () => "确定" })
+    });
 };
 
 function debugBtnEvent() {

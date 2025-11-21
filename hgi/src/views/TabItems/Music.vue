@@ -15,31 +15,33 @@ const musicData = ref([]);
 const musicSrc = ref("");
 const itemData = ref({});
 
-const musicFiles = import.meta.glob("../../../public/music/\*");
-Object.keys(musicFiles).forEach(async (filePath) => {
-    let fileNameEx = filePath.split('/').pop().split('\\').pop()
-    let fileName = fileNameEx.split('.').slice(0, -1).join('.')
+import musics from "../../../public/data/musics.json";
+for (let index = 0; index < musics.length; index++) {
+    let fileNameEx = musics[index];
+    let fileName = fileNameEx.split('.').slice(0, -1).join('.');
     let musicName = fileName;
     let zz = "";
     if (musicName.includes('-')) {
-        let result = musicName.split("-")
+        let result = musicName.split("-");
         musicName = result[0];
-        zz = result[1]
-    }
+        zz = result[1];
+    };
     musicData.value.push({
         fileNameEx: fileNameEx,
         name: musicName,
         zz: zz,
-    })
-});
+    });
+};
+
 onMounted(() => {
     musicSrc.value = useUserStore().musicSever + musicData.value[0].fileNameEx;
-    itemData.value = musicData.value[0]
-})
+    itemData.value = musicData.value[0];
+});
+
 function onListItemClick(musicItem) {
     musicSrc.value = useUserStore().musicSever + musicItem.fileNameEx;
-    itemData.value = musicItem
-}
+    itemData.value = musicItem;
+};
 
 </script>
 

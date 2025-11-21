@@ -36,15 +36,16 @@
 <script setup>
 import { ref, defineProps, defineEmits } from "vue";
 import pinyin from 'pinyin';
-const props = defineProps(['musicData'])
-const emit = defineEmits(['onItemClick'])
+const props = defineProps(['musicData']);
+const emit = defineEmits(['onItemClick']);
 const isSelectKey = ref(true);
 const selectKeyData = ref([]);
 for (let i = 65; i <= 90; i++) {
-    selectKeyData.value.push(String.fromCharCode(i))
+    selectKeyData.value.push(String.fromCharCode(i));
 }
+
 for (let i = 65; i <= 90; i++) {
-    selectKeyData.value.push("拼英" + String.fromCharCode(i))
+    selectKeyData.value.push("拼英" + String.fromCharCode(i));
 }
 selectKeyData.value.push("#");
 
@@ -64,6 +65,7 @@ const getGroupKey = (str) => {
         return /[A-Z]/.test(firstLetter) ? firstLetter : '#';
     }
 };
+
 const groupByFirstLetter = (data) => {
     const groups = {};
     data.forEach(item => {
@@ -93,12 +95,13 @@ const groupByFirstLetter = (data) => {
         }
     });
 };
-data.value = groupByFirstLetter(props.musicData)
+data.value = groupByFirstLetter(props.musicData);
 console.log(data.value);
 
 function keySelectClickEvent() {
     isSelectKey.value = !isSelectKey.value;
-}
+};
+
 function scrollToAnchor(selector) {
     setTimeout(() => {
         const element = document.getElementById(selector);
@@ -108,7 +111,8 @@ function scrollToAnchor(selector) {
         console.log(element);
     }, 470);
 
-}
+};
+
 function listItemClickEvent(musicItem) {
     emit("onItemClick", musicItem)
 }

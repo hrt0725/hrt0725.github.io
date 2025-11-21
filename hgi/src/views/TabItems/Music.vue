@@ -45,12 +45,11 @@ onMounted(() => {
 });
 
 function onListItemClick(musicItem) {
-    currentMusicSrc.value = useUserStore().musicSever + musicItem.fileNameEx;
+    currentMusicSrc.value = useUserStore().musicSever + useUserStore().musicFilePath + musicItem.fileNameEx;
     currentMusicData.value = musicItem;
 };
 
 </script>
-
 
 <style scoped>
 .musicList {

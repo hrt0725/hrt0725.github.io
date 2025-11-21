@@ -1,16 +1,20 @@
 export const InfoPane = {
     info: {
-        version: "1.1.2",
-        lastUpDate: "2025.11.20",
+        version: "1.1.3",
+        lastUpDate: "2025.11.21",
     },
     externalDependency: [
         {
             title: "vue.js",
-            href: "https://cn.vuejs.org/"
+            href: "https://cn.vuejs.org"
         },
         {
             title: "Naive UI",
             href: "https://www.naiveui.com/zh-CN/light"
+        },
+        {
+            title: "Axios",
+            href: "https://axios-http.com"
         },
         {
             title: "Ionic",
@@ -18,7 +22,7 @@ export const InfoPane = {
         },
         {
             title: "icones.js",
-            href: "https://icones.js.org/"
+            href: "https://icones.js.org"
         },
         {
             title: "pinyin",
@@ -26,7 +30,7 @@ export const InfoPane = {
         },
         {
             title: "pinia",
-            href: "https://pinia.vuejs.org/zh/"
+            href: "https://pinia.vuejs.org/zh"
         },
         {
             title: "pinia-plugin-persistedstate",
@@ -34,10 +38,16 @@ export const InfoPane = {
         },
         {
             title: "Excalidraw",
-            href: "https://docs.excalidraw.com/"
+            href: "https://docs.excalidraw.com"
         },
     ],
     timeLine: [
+        {
+            type: "success",
+            title: "V1.1.3",
+            content: "优化音乐文件获取方式",
+            time: "2025年11月21日 16:05"
+        },
         {
             type: "success",
             title: "V1.1.2",

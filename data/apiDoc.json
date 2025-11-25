@@ -1,0 +1,56 @@
+[
+    {
+        "url": "/api/sys/getServerInfo",
+        "dist": "获取系统信息",
+        "methed": "GET",
+        "params": [
+            {
+                "name": "name",
+                "type": "str",
+                "bt": true
+            },
+            {
+                "name": "passowrd",
+                "type": "str",
+                "bt": true
+            }
+        ],
+        "isF": true
+    },
+    {
+        "url": "/api/login",
+        "dist": "登录接口",
+        "methed": "POST",
+        "params": [
+            {
+                "name": "username",
+                "type": "str",
+                "bt": true
+            },
+            {
+                "name": "passowrd",
+                "type": "str",
+                "bt": true
+            }
+        ],
+        "isF": true
+    },
+    {
+        "url": "/api/register",
+        "dist": "注册接口",
+        "methed": "POST",
+        "params": [
+            {
+                "name": "username",
+                "type": "str",
+                "bt": true
+            },
+            {
+                "name": "passowrd",
+                "type": "str",
+                "bt": true
+            }
+        ],
+        "isF": true
+    }
+]

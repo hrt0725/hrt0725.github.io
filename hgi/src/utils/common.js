@@ -1,3 +1,4 @@
+
 export function openURL(url) {
     const a = document.createElement('a');
     a.href = url;
@@ -15,7 +16,6 @@ export function copy2Clipboard(text) {
             textarea.style.opacity = '0';
             document.body.appendChild(textarea);
             textarea.select();
-
             try {
                 const successful = document.execCommand('copy');
                 document.body.removeChild(textarea);
@@ -31,3 +31,21 @@ export function copy2Clipboard(text) {
         }
     });
 }
+
+export function isValidUrl(string) {
+    try {
+        new URL(string);
+        return true;
+    } catch (_) {
+        return false;
+    }
+};
+
+export function checkUrlStatus(url) {
+    if (!isValidUrl(url)) {
+        return Promise.resolve(false);
+    }
+    return fetch(url, { method: 'GET' })
+        .then(response => response.ok)
+        .catch(() => false);
+};

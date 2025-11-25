@@ -8,18 +8,11 @@ export const useCounterStore = defineStore('counter', () => {
     count.value++
   }
   return { count, doubleCount, increment }
-})
-
-export const useThemeStore = defineStore('Themer',
-  () => {
-    const theme = ref(null)
-    const isDark = ref(false)
-    return { isDark, theme }
-  },
-  { persist: true }
-)
+});
 
 export const useUserStore = defineStore('UserStore', () => {
+  const theme = ref(null);
+  const isDark = ref(false);
   const isClickMenu2Collapsed = ref(true);
   const autoCacheFile = ref(true);
   const multiwindowing = ref(false);
@@ -28,8 +21,11 @@ export const useUserStore = defineStore('UserStore', () => {
   const musicSever = ref("https://hrt0725.github.io/");
   const musicManifestPath = ref("data/musics.json");
   const musicFilePath = ref("music/");
-  const themeOptionsValue = ref({});
-  const themeOptions = ref([]);
+  const themeOptionsValue = ref('def');
+  const themeOptions = ref([{ label: "默认", value: 'def' }]);
+  const themesJsonData = ref([{ label: "默认", value: null }]);
+
+  const pageTitle = ref("HGI");
 
   const musicSevers = ref([
     {
@@ -60,7 +56,25 @@ export const useUserStore = defineStore('UserStore', () => {
       value: "hc-black",
     }
   ]);
-  return { isClickMenu2Collapsed, autoCacheFile, severAddr, defMusicSever, musicSever, musicManifestPath, musicFilePath, musicSevers, codeTheme, codeThemes, multiwindowing, themeOptionsValue, themeOptions }
+  function setToDef() {
+    isClickMenu2Collapsed.value = true;
+    autoCacheFile.value = true;
+    multiwindowing.value = false;
+    severAddr.value = "";
+    defMusicSever.value = "https://hrt0725.github.io/";
+    musicSever.value = "https://hrt0725.github.io/";
+    musicManifestPath.value = "data/musics.json";
+    musicFilePath.value = "music/";
+    themeOptionsValue.value = 'def';
+    themeOptions.value = [{ label: "默认", value: 'def' }];
+    themesJsonData.value = [{ label: "默认", value: null }];
+    pageTitle.value = "HGI";
+  }
+  return {
+    isDark, theme, setToDef,
+    isClickMenu2Collapsed, autoCacheFile, severAddr, defMusicSever, musicSever, musicManifestPath, musicFilePath, musicSevers, codeTheme, codeThemes, multiwindowing, themeOptionsValue, themeOptions, themesJsonData,
+    pageTitle
+  }
 },
   { persist: true }
 )

@@ -4,13 +4,17 @@
             <n-anchor-link title="主题">
                 <div class="configItem">
                     <n-button type="primary" size="tiny" @click="themeBtn">{{ themeTitle }}</n-button>
-                    <n-switch @click="changetheme" v-model:value="useThemeStore().isDark" />
+                    <n-switch @click="changetheme" v-model:value="useUserStore().isDark" />
                 </div>
                 <div class="configItem">
                     <n-button type="primary" size="tiny">主题选择</n-button>
-                    <n-select size="tiny" v-model:value="themeOptionsValue" :options="useUserStore().themeOptions"
-                        :consistent-menu-width="false" style="max-width: 180px;" />
+                    <n-select size="tiny" v-model:value="useUserStore().themeOptionsValue"
+                        :options="useUserStore().themeOptions" :consistent-menu-width="false"
+                        style="max-width: 135px;" />
                     <n-button type="primary" secondary size="tiny" @click="addThemeEvent">导入主题</n-button>
+                    <n-dropdown trigger="click" size="small" :options="themeOptions" @select="themeOptionsHandleSelect">
+                        <n-button type="primary" secondary size="tiny">...</n-button>
+                    </n-dropdown>
                 </div>
                 <div class="configItem">
                     <n-button type="primary" size="tiny">新主题</n-button>
@@ -56,9 +60,7 @@
                     <n-button type="primary" size="tiny">清单路径</n-button>
                     <n-input v-model:value="useUserStore().musicManifestPath" size="tiny" placeholder="路径"
                         style="max-width: 215px;">
-                        <template #prefix>
-                            {{ useUserStore().musicSever }}
-                        </template>
+                        <template #prefix>.../</template>
                     </n-input>
                     <n-button size="tiny"
                         @click="openURL(useUserStore().musicSever + useUserStore().musicManifestPath)">
@@ -73,9 +75,7 @@
                     <n-button type="primary" size="tiny">文件路径</n-button>
                     <n-input v-model:value="useUserStore().musicFilePath" size="tiny" placeholder="路径"
                         style="max-width: 215px;">
-                        <template #prefix>
-                            {{ useUserStore().musicSever }}
-                        </template>
+                        <template #prefix>.../</template>
                     </n-input>
                     <n-popover trigger="hover">
                         <template #trigger>
@@ -111,6 +111,13 @@
                     <n-switch v-model:value="useUserStore().multiwindowing" />
                 </div>
                 <div class="configItem">
+                    <n-button type="primary" size="tiny">页面标题</n-button>
+                    <n-input size="tiny" style="width: 120px;" v-model:value="useUserStore().pageTitle" />
+                </div>
+                <div class="configItem">
+                    <n-button type="primary" size="tiny" @click="setToDefConfig">重设为默认</n-button>
+                </div>
+                <div class="configItem">
                     <n-button type="primary" size="tiny" @click="debugBtnEvent">调试按钮</n-button>
                 </div>
             </n-anchor-link>
@@ -119,11 +126,11 @@
 </template>
 
 <script setup>
-import { h, ref } from "vue";
-import { darkTheme, useDialog, NInput, NButton } from "naive-ui";
-import { useThemeStore, useUserStore } from "@/stores/config";
+import { ref } from "vue";
+import { darkTheme, useDialog, useMessage, NInput, NButton } from "naive-ui";
+import { useUserStore } from "@/stores/config";
 import { useBroadcastChannel } from '@/stores/broadcastChannel';
-import { openURL } from '@/utils/common';
+import { openURL, checkUrlStatus } from '@/utils/common';
 import { selectJsonFile } from '@/utils/file';
 import Warning from "@/components/icons/Warning.vue";
 import Wifi from "@/components/icons/Wifi.vue";
@@ -131,53 +138,83 @@ import Success from "@/components/icons/Success.vue";
 import Error from "@/components/icons/Error.vue";
 import UpWardIcon from "@/components/icons/UpWardIcon.vue";
 import NewTheme from "@/views/TabItems/NewTheme.vue";
+import { InputDialog } from "@/utils/component";
 const dialog = useDialog();
+const message = useMessage();
+
 const themeTitle = ref("明亮");
 const isTesting = ref(false);
 const isTested = ref(false);
 const isSuccess = ref(true);
 
-const newThemeName = ref("");
-const themeOptionsValue = ref(null);
-const themeOptions = [
-    { label: "图片URL", value: true },
-];
+const themeOptions = ref([
+    { label: "删除", key: "delete" },
+    { label: "重命名", key: "rename" }
+]);
+
+function themeOptionsHandleSelect(name) {
+    if (name == 'delete') {
+        if (useUserStore().themeOptionsValue == 'def') {
+            message.error("默认不可删除");
+            return;
+        };
+        let oldName = useUserStore().themeOptionsValue;
+        let index = useUserStore().themeOptions.findIndex(i => i.label == oldName);
+        useUserStore().themeOptions.splice(index, 1);
+        let JsonDataIndex = useUserStore().themesJsonData.findIndex(i => i.label == oldName);
+        useUserStore().themesJsonData.splice(JsonDataIndex, 1);
+        useUserStore().themeOptionsValue = 'def';
+        message.success('删除成功:' + oldName);
+    } else if (name == 'rename') {
+        if (useUserStore().themeOptionsValue == 'def') {
+            message.error("默认不可更改");
+            return
+        }
+        InputDialog(dialog, 'info', '重命名主题', (newText) => {
+            dialog.destroyAll();
+            let index = useUserStore().themeOptions.findIndex(i => i.label == useUserStore().themeOptionsValue);
+            useUserStore().themeOptions[index].label = newText;
+            useUserStore().themeOptions[index].value = newText;
+            useUserStore().themesJsonData.find(i => i.label == useUserStore().themeOptionsValue).label = newText;
+            useUserStore().themeOptionsValue = newText;
+        });
+    }
+}
 
 const changetheme = () => {
-    themeTitle.value = useThemeStore().theme == null ? "暗黑" : "明亮";
-    useThemeStore().theme = useThemeStore().theme == null ? darkTheme : null;
+    themeTitle.value = useUserStore().theme == null ? "暗黑" : "明亮";
+    useUserStore().theme = useUserStore().theme == null ? darkTheme : null;
 };
 
 function themeBtn() {
-    useThemeStore().isDark = !useThemeStore().isDark;
+    useUserStore().isDark = !useUserStore().isDark;
     changetheme()
 };
 
 function addThemeEvent() {
-    dialog.info({
-        title: "添加主题",
-        content: () => h(NInput, {
-            placeholder: "请输入内容",
-            size: "tiny",
-            style: "width:200px",
-            value: newThemeName.value,
-            onUpdateValue: v => (newThemeName.value = v)
-        }),
-        style: "width:max-content;height:max-content",
-        action: () => h(NButton, {
-            type: "primary",
-            size: "tiny",
-            onClick: () => {
-                dialog.destroyAll();
-                selectJsonFile().then(json => {
-                    useUserStore().themeOptions.push({ label: newThemeName, value: json })
-                }).catch(err => {
-                    console.error(err);
-                });
-            }
-        }, { default: () => "确定" })
+    InputDialog(dialog, 'info', '添加主题', (newText) => {
+        dialog.destroyAll();
+        selectJsonFile().then(json => {
+            useUserStore().themeOptions.push({ label: newText, value: newText });
+            useUserStore().themesJsonData.push({ label: newText, value: json });
+            useUserStore().themeOptionsValue = newText;
+        }).catch(err => {
+            console.error(err);
+        });
     });
 };
+
+function setToDefConfig() {
+    useUserStore().setToDef();
+}
+
+function handleNegativeClick() {
+    message.warning("取消");
+}
+
+function handlePositiveClick() {
+    message.success("确认");
+}
 
 function debugBtnEvent() {
     console.log(isSuccess.value);
@@ -195,34 +232,23 @@ function handleUpdateValue(value, option) {
     if (!existingItem) userStore.musicSevers.push(option);
 };
 
-function isValidUrl(string) {
-    try {
-        new URL(string);
-        return true;
-    } catch (_) {
-        return false;
-    }
-};
-
-function checkUrlStatus(url) {
-    if (!isValidUrl(url)) {
-        return Promise.resolve(false);
-    }
-    return fetch(url, { method: 'GET' })
-        .then(response => response.ok)
-        .catch(() => false);
-};
 
 function testServerEvent() {
     isTesting.value = true;
     isTested.value = false;
     checkUrlStatus(useUserStore().severAddr).then((data) => {
-        isTested.value = true;
         isTesting.value = false;
         isSuccess.value = data;
-    }).catch((data) => {
         isTested.value = true;
+    }).catch((data) => {
         isSuccess.value = false;
+        isTested.value = true;
+    }).finally(() => {
+        if (isSuccess.value) {
+            message.success("服务器可用");
+        } else {
+            message.error("服务器不可用");
+        }
     })
 };
 

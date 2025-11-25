@@ -26,17 +26,17 @@
                     src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg" />
 
                 <div class="castBtnMain">
-                    <n-button size="tiny" type="primary" @click="castDownEvent">
-                        <template #icon>
-                            <n-icon>
-                                <ChevronDownDoubleIcon />
-                            </n-icon>
-                        </template>
-                    </n-button>
                     <n-button size="tiny" type="primary" @click="castUpEvent">
                         <template #icon>
                             <n-icon>
                                 <ChevronUpDoubleIcon />
+                            </n-icon>
+                        </template>
+                    </n-button>
+                    <n-button size="tiny" type="primary" @click="castDownEvent">
+                        <template #icon>
+                            <n-icon>
+                                <ChevronDownDoubleIcon />
                             </n-icon>
                         </template>
                     </n-button>

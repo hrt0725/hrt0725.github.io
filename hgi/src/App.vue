@@ -1,5 +1,6 @@
 <template>
-  <n-config-provider :theme="useThemeStore().theme" :theme-overrides="useUserStore().themeOptionsValue">
+  <n-config-provider :theme="useUserStore().theme"
+    :theme-overrides="useUserStore().themesJsonData.find(i => i.label == useUserStore().themeOptionsValue)?.value">
     <n-dialog-provider>
       <n-message-provider>
         <n-scrollbar style="height:100vh">
@@ -11,6 +12,11 @@
 </template>
 
 <script setup>
-import { useThemeStore, useUserStore } from "./stores/config";
+import { watch } from "vue";
+import { useUserStore } from "./stores/config";
+
+watch(() => useUserStore().pageTitle, (newValue) => {
+  document.title = newValue;
+});
 
 </script>

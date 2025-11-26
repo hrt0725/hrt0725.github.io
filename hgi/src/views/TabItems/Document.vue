@@ -149,7 +149,6 @@ const toNumber = ref(0);
 const numberAnimationInstRef = ref(null);
 const apiDrawerActive = ref(false);
 
-
 import hljs from 'highlight.js/lib/core'
 import json from 'highlight.js/lib/languages/json'
 import javascript from 'highlight.js/lib/languages/javascript'
@@ -167,7 +166,6 @@ const splitDefaultSize = ref('250px');
 const isReloadingApiDoc = ref(false);
 
 const axiosExampltCodeTemplate = ref('');
-
 
 watch(() => currApiDocIndex.value, (newValue) => {
     let params = {};

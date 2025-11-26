@@ -38,7 +38,6 @@ import CloudIcon from "@/components/icons/Cloud.vue";
 import ToolsIcon from "@/components/icons/ToolsIcon.vue";
 import GamepadIcon from "@/components/icons/GamepadIcon.vue";
 import InkPenIcon from "@/components/icons/InkPenIcon.vue";
-import Mouse from "@/components/icons/Mouse.vue";
 import Config from "./TabItems/Config.vue";
 import WelCome from "./TabItems/WelCome.vue";
 import Music from "./TabItems/Music.vue";

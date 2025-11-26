@@ -1,56 +1,78 @@
 [
     {
         "url": "/api/sys/getServerInfo",
-        "dist": "获取系统信息",
+        "describe": "获取系统信息",
         "methed": "GET",
-        "params": [
-            {
-                "name": "name",
-                "type": "str",
-                "bt": true
+        "params": [],
+        "response": {
+            "success": {
+                "msg": "获取系统信息成功",
+                "OS": "Linux"
             },
-            {
-                "name": "passowrd",
-                "type": "str",
-                "bt": true
+            "fail": {
+                "msg": "获取系统信息失败"
             }
-        ],
-        "isF": true
+        }
     },
     {
-        "url": "/api/login",
-        "dist": "登录接口",
+        "url": "/api/user/login",
+        "describe": "登录接口",
         "methed": "POST",
         "params": [
             {
-                "name": "username",
-                "type": "str",
-                "bt": true
+                "name": "userName",
+                "type": "string",
+                "exampleValue": "tom",
+                "describe": "用户名",
+                "required": true
             },
             {
                 "name": "passowrd",
-                "type": "str",
-                "bt": true
+                "type": "string",
+                "exampleValue": "123456",
+                "describe": "用户登录密码",
+                "required": true
             }
         ],
-        "isF": true
+        "response": {
+            "success": {
+                "msg": "登陆成功",
+                "token": "d98c1dd404b2008f980980e97e42f8ec"
+            },
+            "fail": {
+                "msg": "用户名或密码错误"
+            }
+        }
     },
     {
-        "url": "/api/register",
-        "dist": "注册接口",
+        "url": "/api/user/register",
+        "describe": "注册接口",
         "methed": "POST",
         "params": [
             {
-                "name": "username",
-                "type": "str",
-                "bt": true
+                "name": "userName",
+                "type": "string",
+                "exampleValue": "tom",
+                "describe": "用户名",
+                "required": true
             },
             {
                 "name": "passowrd",
-                "type": "str",
-                "bt": true
+                "type": "string",
+                "exampleValue": "123456",
+                "describe": "用户注册密码",
+                "required": true
             }
         ],
-        "isF": true
+        "response": {
+            "success": {
+                "msg": "注册成功",
+                "userName": "tom",
+                "uId": "d98c1dd404b2008f980980e97e42f8ec"
+            },
+            "fail": {
+                "msg": "用户名已存在"
+            }
+        }
     }
 ]

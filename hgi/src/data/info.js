@@ -1,7 +1,7 @@
 export const InfoPane = {
     info: {
-        version: "1.1.6",
-        lastUpDate: "2025.11.25 23:39",
+        version: "1.1.7",
+        lastUpDate: "2025.11.26 15:07",
     },
     externalDependency: [
         {
@@ -29,6 +29,10 @@ export const InfoPane = {
             href: "https://www.npmjs.com/package/pinyin"
         },
         {
+            title: "highlight.js",
+            href: "https://highlightjs.org"
+        },
+        {
             title: "pinia",
             href: "https://pinia.vuejs.org/zh"
         },
@@ -42,6 +46,12 @@ export const InfoPane = {
         },
     ],
     timeLine: [
+        {
+            type: "success",
+            title: "V1.1.7",
+            content: "服务器接口文档完成",
+            time: "2025年11月26日 15:07"
+        },
         {
             type: "success",
             title: "V1.1.6",

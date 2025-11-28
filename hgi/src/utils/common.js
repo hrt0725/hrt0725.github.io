@@ -49,3 +49,18 @@ export function checkUrlStatus(url) {
         .then(response => response.ok)
         .catch(() => false);
 };
+
+export function randomString(minLen, maxLen, fixLen) {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let len;
+    if (typeof fixLen === "number") {
+        len = fixLen;
+    } else {
+        len = Math.floor(Math.random() * (maxLen - minLen + 1)) + minLen;
+    }
+    let result = "";
+    for (let i = 0; i < len; i++) {
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return result;
+}

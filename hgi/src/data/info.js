@@ -1,7 +1,7 @@
 export const InfoPane = {
     info: {
         version: "1.1.8",
-        lastUpDate: "2025.11.26 21:33",
+        lastUpDate: "2025.11.28 12:40",
     },
     externalDependency: [
         {
